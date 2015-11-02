@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView id="frogger" fitHeight="35.0" fitWidth="35.0" layoutX="283.0" layoutY="555.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Files/Sprites/Frogger_sprite.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="22.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives" />
+      <Text layoutX="101.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
+      <Text id="lives" layoutX="57.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+      <Text id="score" layoutX="139.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+   </children>
+</Pane>
