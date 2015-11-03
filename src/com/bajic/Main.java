@@ -1,7 +1,13 @@
 package com.bajic;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -11,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.util.Duration;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -19,23 +26,26 @@ import java.util.logging.Logger;
 public class Main extends Application{
 
     public static final int FRAMES_PER_SECOND = 60;
-    public static final int SPEED_FACTOR = 20;
+    public static final int SPEED_FACTOR = 15;
+    public static final int SECOND_IN_MILLISECONDS = 1000;
     public static double froggerStartingPositionX;
     public static double froggerStartingPositionY;
     public static final double SQUARE_SIZE = 600 / 13;
-    public static double rows = 13;
-    public static double columns = 13;
-    public static final int ANIMATION_TIME = 100;
+    public static ArrayList<Boolean> visitedRows = new ArrayList<>();
+    public static final double ANIMATION_TIME = 0.15;
+    public static double timeForLevel;
+    public static Pane window;
+    public static Node frogger;
     public static Text lives;
     public static Text score;
-    public static Node frogger;
-    public static Pane window;
+    public static Text time;
+    private Timeline timeline;
+    private IntegerProperty timeSeconds;
     public ArrayList<MyImage> images = new ArrayList<>();
 
     public static void main(String[] args) {
         Application.launch(Main.class, (java.lang.String[]) null);
     }
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -45,18 +55,25 @@ public class Main extends Application{
             window = (Pane) root.lookup("#window");
             lives = (Text) root.lookup("#lives");
             score = (Text) root.lookup("#score");
+            time = (Text) root.lookup("#time");
             froggerStartingPositionX = frogger.getLayoutX();
             froggerStartingPositionY = frogger.getLayoutY();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Frogger");
             initializeLevel(1);
+            setTime();
 
             new AnimationTimer()
             {
                 public void handle(long currentNanoTime)
                 {
-                    MoveImages();
+                    time.setText(Integer.toString(timeSeconds.getValue()));
+                    if(timeSeconds.getValue() == 0){
+                        setTime();
+                        LoseLife();
+                    }
+                    Move.moveImages(images);
                     scene.setOnKeyPressed(
                             e -> {
                                 String code = e.getCode().toString();
@@ -71,49 +88,48 @@ public class Main extends Application{
         }
     }
 
-    private void MoveImages() {
-        for (int i = 0; i < images.size(); i++) {
-            double distance = ((double) FRAMES_PER_SECOND / 1000d) * images.get(i).getSpeed() * SPEED_FACTOR;
-            double imageWidth = images.get(i).getImageView().getLayoutBounds().getWidth();
-            if(images.get(i).isFacingLeft()){
-                if(images.get(i).getImageView().getLayoutX() < 0 - imageWidth - SQUARE_SIZE){
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + window.getWidth() +
-                            imageWidth + SQUARE_SIZE);
-                }
-                else {
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - distance);
-                }
-            }
-            else {
-                if(images.get(i).getImageView().getLayoutX() > window.getWidth() + imageWidth  + SQUARE_SIZE){
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - window.getWidth() -
-                            imageWidth  - SQUARE_SIZE);
-                } else {
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + distance);
-                }
-            }
-            if(ImageOverlapsFrogger(images.get(i).getImageView())){
-                lives.setText(Integer.toString(Integer.parseInt(lives.getText()) - 1));
-                frogger.setLayoutX(froggerStartingPositionX);
-                frogger.setLayoutX(froggerStartingPositionY);
-            }
+    private void setTime() {
+        if (timeline != null) {
+            timeline.stop();
         }
-    }
-
-    private boolean ImageOverlapsFrogger(ImageView imageView) {
-        if(frogger.intersects(imageView.getBoundsInLocal())){
-            //return true;
-        }
-        return false;
+        timeSeconds = new SimpleIntegerProperty((int) timeForLevel);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(60 + 1),
+                        new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
     }
 
     private void initializeLevel(int level) {
-        createImage("Car", 11, 1, true,1);
-        createImage("Car", 11, 6, true,1);
-        createImage("Car", 11, 11, true,1);
+        switch (level){
+            case 1:{
+                visitedRows.clear();
+                InitializeVisitedRows(13);
+                timeForLevel = 60;
+                time.setText(Double.toString(60d));
+                createImage("Car", 11, 1, true,1);
+                createImage("Car", 11, 6, true,1);
+                createImage("Car", 11, 11, true,1);
+                createImage("Car", 10, 2, false,1);
+                createImage("Car", 10, 7, false,1);
+                createImage("Car", 10, 12, false,1);
+                createImage("Car", 9, 0, true,2);
+                createImage("Car", 9, 5, true,2);
+                createImage("Car", 9, 12, true,2);
+                createImage("Car", 8, 2, false,1);
+                createImage("Car", 8, 7, false,1);
+                createImage("Car", 8, 12, false,1);
+            }
+        }
     }
 
-    public void createImage(String name, int row, int column, boolean facingLeft, int speed){
+    private void InitializeVisitedRows(int length) {
+        for (int i = 0; i < length; i++) {
+            visitedRows.add(false);
+        }
+    }
+
+    public void createImage(String name, int row, int column, boolean facingLeft, double speed){
         ImageView image = new ImageView(new Image("Files/Sprites/" + name +".jpg"));
         image.relocate(column * SQUARE_SIZE, row * SQUARE_SIZE);
         if(facingLeft){
@@ -124,43 +140,49 @@ public class Main extends Application{
     }
 
     private void onKeyPress(String code) {
+        if(Move.moving){
+            return;
+        }
         switch (code){
             case "LEFT":{
                 frogger.setRotate(-90);
-                moveFrogger(-SQUARE_SIZE, 0);
+                Move.moveFrogger(-SQUARE_SIZE, 0);
                 break;
             }
             case "RIGHT":{
                 frogger.setRotate(90);
-                moveFrogger(SQUARE_SIZE, 0);
+                Move.moveFrogger(SQUARE_SIZE, 0);
                 break;
             }
             case "DOWN":{
                 frogger.setRotate(-180);
-                moveFrogger(0, SQUARE_SIZE);
+                Move.moveFrogger(0, SQUARE_SIZE);
                 break;
             }
             case "UP":{
+                int row = (int) (frogger.getLayoutY() / SQUARE_SIZE);
+                if(!visitedRows.get(row)){
+                    visitedRows.set(row, true);
+                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 10));
+                }
                 frogger.setRotate(0);
-                moveFrogger(0, -SQUARE_SIZE);
+                Move.moveFrogger(0, -SQUARE_SIZE);
                 break;
             }
         }
     }
 
-    private void moveFrogger(double x, double y) {
-        if(Math.round(frogger.getLayoutX() + x) <= 0 || Math.round(frogger.getLayoutX() + x) >= window.getWidth() ||
-                Math.round(frogger.getLayoutY() + y) <= 0 || Math.round(frogger.getLayoutY() + y + SQUARE_SIZE) >= window.getHeight()){
-            return;
+    public static void LoseLife() {
+
+        lives.setText(Integer.toString(Integer.parseInt(lives.getText()) - 1));
+        if(Integer.parseInt(lives.getText()) == 0){
+            Platform.exit();
         }
-        for (int i = 0; i < FRAMES_PER_SECOND; i++) {
-            try {
-                Thread.sleep((FRAMES_PER_SECOND/ 1000) * ANIMATION_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            frogger.setLayoutX(frogger.getLayoutX() + x / FRAMES_PER_SECOND);
-            frogger.setLayoutY(frogger.getLayoutY() + y / FRAMES_PER_SECOND);
+        frogger.setLayoutX(froggerStartingPositionX);
+        frogger.setLayoutY(froggerStartingPositionY);
+        for (int i = 0; i < visitedRows.size() - 1; i++) {
+            visitedRows.set(i, false);
         }
+        Move.stopped = true;
     }
 }

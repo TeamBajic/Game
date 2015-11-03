@@ -19,5 +19,7 @@
       <Text layoutX="101.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
       <Text id="lives" layoutX="57.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
       <Text id="score" layoutX="139.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text layoutX="499.0" layoutY="625.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
+      <Text id="time" layoutX="537.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60" />
    </children>
 </Pane>

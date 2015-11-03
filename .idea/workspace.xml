@@ -63,46 +63,24 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/bajic/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6165413">
-              <caret line="111" column="42" selection-start-line="111" selection-start-column="42" selection-end-line="111" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.7702703">
+              <caret line="120" column="36" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1105#1106#0" expanded="true" />
-                <element signature="e#1178#1179#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyImage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bajic/MyImage.java">
+      <file leaf-file-name="Move.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bajic/Move.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+              <caret line="67" column="28" selection-start-line="67" selection-start-column="28" selection-end-line="67" selection-end-column="28" />
               <folding>
-                <element signature="e#444#445#0" expanded="true" />
-                <element signature="e#486#487#0" expanded="true" />
-                <element signature="e#539#540#0" expanded="true" />
-                <element signature="e#583#584#0" expanded="true" />
-                <element signature="e#622#623#0" expanded="true" />
-                <element signature="e#656#657#0" expanded="true" />
-                <element signature="e#831#832#0" expanded="true" />
-                <element signature="e#859#860#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Game window.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bajic/Game window.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.3448277">
-              <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -131,6 +109,9 @@
         <option value="$PROJECT_DIR$/src/com/bajic/bajic/Main.java" />
         <option value="$PROJECT_DIR$/src/com/bajic/ImageProperties.java" />
         <option value="$PROJECT_DIR$/src/com/bajic/MyImage.java" />
+        <option value="$PROJECT_DIR$/src/com/bajic/MoveFrogger.java" />
+        <option value="$PROJECT_DIR$/src/com/bajic/Level.java" />
+        <option value="$PROJECT_DIR$/src/com/bajic/Move.java" />
         <option value="$PROJECT_DIR$/src/com/bajic/Main.java" />
       </list>
     </option>
@@ -173,6 +154,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -229,8 +212,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -465,7 +446,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -475,7 +456,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32861635" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
@@ -510,15 +491,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/bajic/Main.java</url>
-          <line>157</line>
-          <properties />
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="19" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -533,8 +506,38 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1105#1106#0" expanded="true" />
-            <element signature="e#1178#1179#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bajic/MyImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+          <folding>
+            <element signature="e#831#832#0" expanded="false" />
+            <element signature="e#859#860#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bajic/Game window.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bajic/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -545,8 +548,6 @@
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1105#1106#0" expanded="true" />
-            <element signature="e#1178#1179#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -557,17 +558,6 @@
           <caret line="190" column="0" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bajic/Game window.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3448277">
-          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/scene/Node.java">
@@ -588,31 +578,191 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Jave OOP/src/Shop/PurchaseManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bajic/MyImage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
           <folding>
-            <element signature="e#444#445#0" expanded="true" />
-            <element signature="e#486#487#0" expanded="true" />
-            <element signature="e#539#540#0" expanded="true" />
-            <element signature="e#583#584#0" expanded="true" />
-            <element signature="e#622#623#0" expanded="true" />
-            <element signature="e#656#657#0" expanded="true" />
-            <element signature="e#831#832#0" expanded="true" />
-            <element signature="e#859#860#0" expanded="true" />
+            <element signature="e#831#832#0" expanded="false" />
+            <element signature="e#859#860#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/event/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/scene/Scene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="2501" column="0" selection-start-line="2501" selection-start-column="0" selection-end-line="2501" selection-end-column="0" />
+          <folding>
+            <element signature="e#92636#92637#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/com/sun/scenario/animation/AbstractMasterTimer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="356" column="0" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/lang/invoke/LambdaForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#75794#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#6002#6003#0" expanded="false" />
+            <element signature="e#6039#6040#0" expanded="false" />
+            <element signature="e#6075#6076#0" expanded="false" />
+            <element signature="e#6113#6114#0" expanded="false" />
+            <element signature="e#6150#6151#0" expanded="false" />
+            <element signature="e#6190#6191#0" expanded="false" />
+            <element signature="e#6221#6222#0" expanded="false" />
+            <element signature="e#6274#6275#0" expanded="false" />
+            <element signature="e#6323#6324#0" expanded="false" />
+            <element signature="e#6369#6370#0" expanded="false" />
+            <element signature="e#7383#7384#0" expanded="false" />
+            <element signature="e#7436#7437#0" expanded="false" />
+            <element signature="e#8311#8312#0" expanded="false" />
+            <element signature="e#8366#8367#0" expanded="false" />
+            <element signature="e#8418#8419#0" expanded="false" />
+            <element signature="e#8472#8473#0" expanded="false" />
+            <element signature="e#19575#19576#0" expanded="false" />
+            <element signature="e#19615#19616#0" expanded="false" />
+            <element signature="e#19899#19900#0" expanded="false" />
+            <element signature="e#19945#19946#0" expanded="false" />
+            <element signature="e#19993#19994#0" expanded="false" />
+            <element signature="e#20021#20022#0" expanded="false" />
+            <element signature="e#20117#20118#0" expanded="false" />
+            <element signature="e#20160#20161#0" expanded="false" />
+            <element signature="e#20267#20268#0" expanded="false" />
+            <element signature="e#20325#20326#0" expanded="false" />
+            <element signature="e#20897#20898#0" expanded="false" />
+            <element signature="e#20966#20967#0" expanded="false" />
+            <element signature="e#35181#35182#0" expanded="false" />
+            <element signature="e#35241#35242#0" expanded="false" />
+            <element signature="e#37308#37309#0" expanded="false" />
+            <element signature="e#37383#37384#0" expanded="false" />
+            <element signature="e#37571#37572#0" expanded="false" />
+            <element signature="e#37630#37631#0" expanded="false" />
+            <element signature="e#37662#37663#0" expanded="false" />
+            <element signature="e#37724#37725#0" expanded="false" />
+            <element signature="e#38944#38945#0" expanded="false" />
+            <element signature="e#39003#39004#0" expanded="false" />
+            <element signature="e#41967#41968#0" expanded="false" />
+            <element signature="e#42048#42049#0" expanded="false" />
+            <element signature="e#43569#43570#0" expanded="false" />
+            <element signature="e#43621#43622#0" expanded="false" />
+            <element signature="e#43658#43659#0" expanded="false" />
+            <element signature="e#43709#43710#0" expanded="false" />
+            <element signature="e#44000#44001#0" expanded="false" />
+            <element signature="e#44072#44073#0" expanded="false" />
+            <element signature="e#53692#53693#0" expanded="false" />
+            <element signature="e#53775#53776#0" expanded="false" />
+            <element signature="e#53809#53810#0" expanded="false" />
+            <element signature="e#53876#53877#0" expanded="false" />
+            <element signature="e#53918#53919#0" expanded="false" />
+            <element signature="e#53989#53990#0" expanded="false" />
+            <element signature="e#54012#54013#0" expanded="false" />
+            <element signature="e#54072#54073#0" expanded="false" />
+            <element signature="e#54313#54314#0" expanded="false" />
+            <element signature="e#54379#54380#0" expanded="false" />
+            <element signature="e#54422#54423#0" expanded="false" />
+            <element signature="e#54492#54493#0" expanded="false" />
+            <element signature="e#57410#57411#0" expanded="false" />
+            <element signature="e#57478#57479#0" expanded="false" />
+            <element signature="e#57757#57758#0" expanded="false" />
+            <element signature="e#57825#57826#0" expanded="false" />
+            <element signature="e#58616#58617#0" expanded="false" />
+            <element signature="e#58669#58670#0" expanded="false" />
+            <element signature="e#59078#59079#0" expanded="false" />
+            <element signature="e#59120#59121#0" expanded="false" />
+            <element signature="e#62683#62684#0" expanded="false" />
+            <element signature="e#62730#62731#0" expanded="false" />
+            <element signature="e#62765#62766#0" expanded="false" />
+            <element signature="e#62860#62861#0" expanded="false" />
+            <element signature="e#65394#65395#0" expanded="false" />
+            <element signature="e#65458#65459#0" expanded="false" />
+            <element signature="e#65966#65967#0" expanded="false" />
+            <element signature="e#66033#66034#0" expanded="false" />
+            <element signature="e#67295#67296#0" expanded="false" />
+            <element signature="e#67350#67351#0" expanded="false" />
+            <element signature="e#69723#69724#0" expanded="false" />
+            <element signature="e#69777#69778#0" expanded="false" />
+            <element signature="e#69826#69827#0" expanded="false" />
+            <element signature="e#69876#69877#0" expanded="false" />
+            <element signature="e#69928#69929#0" expanded="false" />
+            <element signature="e#69978#69979#0" expanded="false" />
+            <element signature="e#70034#70035#0" expanded="false" />
+            <element signature="e#70080#70081#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/animation/AnimationTimer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/lang/invoke/DirectMethodHandle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29573935">
+          <caret line="269" column="0" selection-start-line="269" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
+          <folding>
+            <element signature="e#11421#11422#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bajic/Game window.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38169256">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bajic/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="28" selection-start-line="67" selection-start-column="28" selection-end-line="67" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bajic/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6165413">
-          <caret line="111" column="42" selection-start-line="111" selection-start-column="42" selection-end-line="111" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.7702703">
+          <caret line="120" column="36" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1105#1106#0" expanded="true" />
-            <element signature="e#1178#1179#0" expanded="true" />
           </folding>
         </state>
       </provider>
