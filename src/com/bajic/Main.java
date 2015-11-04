@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +22,9 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,10 +49,11 @@ public class Main extends Application{
     private IntegerProperty timeSeconds;
     public static Scene scene;
     public static boolean isGameRunning = false;
-
+    public static int visRowsCount = 0;
     public static ArrayList<MyImage> images = new ArrayList<>();
+    public static int level = 1;
 
-    public AnimationTimer at = new AnimationTimer() {
+    public AnimationTimer animTimer = new AnimationTimer() {
         public void handle(long currentNanoTime) {
             time.setText(Integer.toString(timeSeconds.getValue()));
             // Timer reaches 0 - lose life and restart.
@@ -72,12 +77,40 @@ public class Main extends Application{
     void startNewGame(){
         showMainMenu(false);
         setTime();
-        at.start();
+        animTimer.start();
         isGameRunning = true;
     }
     @FXML
     void loadGame(){
+        String userHomeFolder = System.getProperty("user.home");
+        File loadFile = new File(userHomeFolder,"loadFile.txt");
+        ArrayList<String> loadSpecs = new ArrayList<>();
 
+        try (Scanner sc = new Scanner(loadFile)) {
+            while( sc.hasNext() ) {
+                String content = sc.useDelimiter("\\@").next();
+                loadSpecs.add(content);
+            }
+
+            timeForLevel = Double.parseDouble(loadSpecs.get(1));
+            visRowsCount = Integer.parseInt(loadSpecs.get(3));
+            score.setText(Integer.toString(Integer.parseInt(loadSpecs.get(2))));
+            level = Integer.parseInt(loadSpecs.get(0));
+            lives.setText(Integer.toString(Integer.parseInt(loadSpecs.get(4))));
+
+            initializeLevel(level);
+            showMainMenu(false);
+            setTime();
+            animTimer.start();
+            isGameRunning = true;
+        }
+        catch (java.io.IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setHeaderText(null);
+            alert.setContentText("No save file found!");
+            alert.showAndWait();
+        }
     }
     @FXML
     void quitGame(){
@@ -116,11 +149,8 @@ public class Main extends Application{
             scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Frogger");
-            // Load level 1.
-            initializeLevel(1);
-            setTime();
 
-            at.start();
+            initializeLevel(level);
             primaryStage.show();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,6 +178,24 @@ public class Main extends Application{
                 InitializeVisitedRows(13);
                 timeForLevel = 60;
                 time.setText(Double.toString(60d));
+                createImage("Car", 11, 1, true,1);
+                createImage("Car", 11, 6, true,1);
+                createImage("Car", 11, 11, true,1);
+                createImage("Car", 10, 2, false,1);
+                createImage("Car", 10, 7, false,1);
+                createImage("Car", 10, 12, false,1);
+                createImage("Car", 9, 0, true,2);
+                createImage("Car", 9, 5, true,2);
+                createImage("Car", 9, 12, true,2);
+                createImage("Car", 8, 2, false,1);
+                createImage("Car", 8, 7, false,1);
+                createImage("Car", 8, 12, false,1);
+                createImage("Car", 18, 12, false,10);
+            }
+            case 2:{
+                visitedRows.clear();
+                InitializeVisitedRows(13);
+                time.setText(Double.toString(timeForLevel));
                 createImage("Car", 11, 1, true,1);
                 createImage("Car", 11, 6, true,1);
                 createImage("Car", 11, 11, true,1);
@@ -225,11 +273,11 @@ public class Main extends Application{
         }
         switch (code) {
             case "ESCAPE":
-                at.stop();
+                animTimer.stop();
                 isGameRunning = false;
                 break;
             case "SPACE":
-                at.start();
+                animTimer.start();
                 isGameRunning = true;
                 break;
         }
