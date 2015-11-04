@@ -5,9 +5,6 @@ import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Team Bajic on 3.11.2015 ã..
- */
 public final class Move {
 
     public static boolean moving = false;
@@ -15,10 +12,41 @@ public final class Move {
 
     // Move frog.
     public static void moveFrogger(double x, double y){
-        if(Math.round(Main.frogger.getLayoutX() + x) <= 0 || Math.round(Main.frogger.getLayoutX() + x) >= Main.window.getWidth() ||
-                Math.round(Main.frogger.getLayoutY() + y) <= 0 || Math.round(Main.frogger.getLayoutY() + y + Main.SQUARE_SIZE) >= Main.window.getHeight()){
-            return;
+
+        //Check for trying to move outside of the bounds
+        if(y == 0) {
+            if(Math.round(Main.frogger.getLayoutX() + x) <= 0 || Math.round(Main.frogger.getLayoutX() + x) >= Main.window.getWidth()) {
+                return;
+            }
         }
+        else {
+            if (Math.round(Main.frogger.getLayoutY() + y) <= 0) {
+
+                for (int i = 0; i < Main.images.size(); i++) {
+                    Main.images.get(i).getImageView().setLayoutY(Main.images.get(i).getImageView().getLayoutY() - Main.window.getHeight());
+                }
+
+                Main.currentLevelScene++;
+                Main.frogger.setLayoutY(Main.froggerStartingPositionY);
+
+                return;
+            } else if (Math.round(Main.frogger.getLayoutY() + y + Main.SQUARE_SIZE) >= Main.window.getHeight()) {
+
+                if (Main.currentLevelScene == 0) {
+                    return;
+                }
+
+                for (int i = 0; i < Main.images.size(); i++) {
+                    Main.images.get(i).getImageView().setLayoutY(Main.images.get(i).getImageView().getLayoutY() + Main.window.getHeight());
+                }
+
+                Main.currentLevelScene--;
+                Main.frogger.setLayoutY(0);
+
+                return;
+            }
+        }
+
         final int[] currentFrames = {0};
         new AnimationTimer()
         {
@@ -47,28 +75,28 @@ public final class Move {
     // Move enemies on the screen.
     public static void moveImages(ArrayList<MyImage> images) {
         for (int i = 0; i < images.size(); i++) {
-            double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * images.get(i).getSpeed() * Main.SPEED_FACTOR;
-            double imageWidth = images.get(i).getImageView().getLayoutBounds().getWidth();
-            if(images.get(i).isFacingLeft()){
-                if(images.get(i).getImageView().getLayoutX() < 0 - imageWidth - Main.SQUARE_SIZE){
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + Main.window.getWidth() +
-                            imageWidth + Main.SQUARE_SIZE);
+                double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * images.get(i).getSpeed() * Main.SPEED_FACTOR;
+                double imageWidth = images.get(i).getImageView().getLayoutBounds().getWidth();
+                if(images.get(i).isFacingLeft()){
+                    if(images.get(i).getImageView().getLayoutX() < 0 - imageWidth - Main.SQUARE_SIZE){
+                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + Main.window.getWidth() +
+                                imageWidth + Main.SQUARE_SIZE);
+                    }
+                    else {
+                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - distance);
+                    }
                 }
                 else {
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - distance);
+                    if(images.get(i).getImageView().getLayoutX() > Main.window.getWidth() + imageWidth  + Main.SQUARE_SIZE){
+                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - Main.window.getWidth() -
+                                imageWidth  - Main.SQUARE_SIZE);
+                    } else {
+                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + distance);
+                    }
                 }
-            }
-            else {
-                if(images.get(i).getImageView().getLayoutX() > Main.window.getWidth() + imageWidth  + Main.SQUARE_SIZE){
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - Main.window.getWidth() -
-                            imageWidth  - Main.SQUARE_SIZE);
-                } else {
-                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + distance);
+                if(imageOverlapsFrogger(images.get(i).getImageView())){
+                    Main.LoseLife();
                 }
-            }
-            if(imageOverlapsFrogger(images.get(i).getImageView())){
-                Main.LoseLife();
-            }
         }
     }
 

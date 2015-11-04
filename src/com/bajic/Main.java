@@ -41,7 +41,12 @@ public class Main extends Application{
     public static Text time;
     private Timeline timeline;
     private IntegerProperty timeSeconds;
-    public ArrayList<MyImage> images = new ArrayList<>();
+
+    public static ArrayList<MyImage> images = new ArrayList<>();
+
+    // when you reach the top of the screen you go to the next scene of the level
+    // and also if you go to the bottom you go back to the previous one.
+    public static int currentLevelScene = 0;
 
     public static void main(String[] args) {
         Application.launch(Main.class, (java.lang.String[]) null);
@@ -127,6 +132,7 @@ public class Main extends Application{
                 createImage("Car", 8, 2, false,1);
                 createImage("Car", 8, 7, false,1);
                 createImage("Car", 8, 12, false,1);
+                createImage("Car", 18, 12, false,10);
             }
         }
     }
@@ -171,6 +177,7 @@ public class Main extends Application{
             case "DOWN":{
                 frogger.setRotate(-180);
                 Move.moveFrogger(0, SQUARE_SIZE);
+
                 break;
             }
             case "W":
@@ -182,6 +189,7 @@ public class Main extends Application{
                 }
                 frogger.setRotate(0);
                 Move.moveFrogger(0, -SQUARE_SIZE);
+
                 break;
             }
         }
