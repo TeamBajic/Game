@@ -6,13 +6,14 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 /**
- * Created by name on 3.11.2015 ã..
+ * Created by Team Bajic on 3.11.2015 ã..
  */
 public final class Move {
 
     public static boolean moving = false;
     public static boolean stopped = false;
 
+    // Move frog.
     public static void moveFrogger(double x, double y){
         if(Math.round(Main.frogger.getLayoutX() + x) <= 0 || Math.round(Main.frogger.getLayoutX() + x) >= Main.window.getWidth() ||
                 Math.round(Main.frogger.getLayoutY() + y) <= 0 || Math.round(Main.frogger.getLayoutY() + y + Main.SQUARE_SIZE) >= Main.window.getHeight()){
@@ -43,6 +44,7 @@ public final class Move {
         }.start();
     }
 
+    // Move enemies on the screen.
     public static void moveImages(ArrayList<MyImage> images) {
         for (int i = 0; i < images.size(); i++) {
             double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * images.get(i).getSpeed() * Main.SPEED_FACTOR;
@@ -70,10 +72,8 @@ public final class Move {
         }
     }
 
+    // Collision check.
     private static boolean imageOverlapsFrogger(ImageView imageView) {
-        if(Main.frogger.getBoundsInParent().intersects(imageView.getBoundsInParent())){
-            return true;
-        }
-        return false;
+        return Main.frogger.getBoundsInParent().intersects(imageView.getBoundsInParent());
     }
 }

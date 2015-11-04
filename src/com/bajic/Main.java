@@ -47,20 +47,24 @@ public class Main extends Application{
         Application.launch(Main.class, (java.lang.String[]) null);
     }
 
+    // Display game window.
     @Override
     public void start(Stage primaryStage) {
         try {
+            // Initialize layout.
             Parent root = FXMLLoader.load(getClass().getResource("Game window.fxml"));
             frogger = root.lookup("#frogger");
             window = (Pane) root.lookup("#window");
             lives = (Text) root.lookup("#lives");
             score = (Text) root.lookup("#score");
             time = (Text) root.lookup("#time");
+            // Set player starting position.
             froggerStartingPositionX = frogger.getLayoutX();
             froggerStartingPositionY = frogger.getLayoutY();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Frogger");
+            // Load level 1.
             initializeLevel(1);
             setTime();
 
@@ -69,11 +73,13 @@ public class Main extends Application{
                 public void handle(long currentNanoTime)
                 {
                     time.setText(Integer.toString(timeSeconds.getValue()));
+                    // Timer reaches 0 - lose life and restart.
                     if(timeSeconds.getValue() == 0){
                         setTime();
                         LoseLife();
                     }
                     Move.moveImages(images);
+                    // Handle user input.
                     scene.setOnKeyPressed(
                             e -> {
                                 String code = e.getCode().toString();
@@ -88,6 +94,7 @@ public class Main extends Application{
         }
     }
 
+    // Game time limit.
     private void setTime() {
         if (timeline != null) {
             timeline.stop();
@@ -100,6 +107,7 @@ public class Main extends Application{
         timeline.playFromStart();
     }
 
+    // Prepare level.
     private void initializeLevel(int level) {
         switch (level){
             case 1:{
@@ -123,12 +131,14 @@ public class Main extends Application{
         }
     }
 
+    // Keep track of score.
     private void InitializeVisitedRows(int length) {
         for (int i = 0; i < length; i++) {
             visitedRows.add(false);
         }
     }
 
+    // Create an image from a picture in resources.
     public void createImage(String name, int row, int column, boolean facingLeft, double speed){
         ImageView image = new ImageView(new Image("Files/Sprites/" + name +".jpg"));
         image.relocate(column * SQUARE_SIZE, row * SQUARE_SIZE);
@@ -139,11 +149,13 @@ public class Main extends Application{
         window.getChildren().add(image);
     }
 
+    // Handle user input.
     private void onKeyPress(String code) {
         if(Move.moving){
             return;
         }
         switch (code){
+            // Arrow keys.
             case "LEFT":{
                 frogger.setRotate(-90);
                 Move.moveFrogger(-SQUARE_SIZE, 0);
@@ -169,7 +181,7 @@ public class Main extends Application{
                 Move.moveFrogger(0, -SQUARE_SIZE);
                 break;
             }
-            // Alternative controls - WASD
+            // Alternative controls - WASD.
             case "W":{
                 int row = (int) (frogger.getLayoutY() / SQUARE_SIZE);
                 if(!visitedRows.get(row)){
@@ -198,12 +210,14 @@ public class Main extends Application{
         }
     }
 
+    // Lose a life.
     public static void LoseLife() {
-
         lives.setText(Integer.toString(Integer.parseInt(lives.getText()) - 1));
+        // No lives left.
         if(Integer.parseInt(lives.getText()) == 0){
             Platform.exit();
         }
+        // Reset frog position to starting one.
         frogger.setLayoutX(froggerStartingPositionX);
         frogger.setLayoutY(froggerStartingPositionY);
         for (int i = 0; i < visitedRows.size() - 1; i++) {
