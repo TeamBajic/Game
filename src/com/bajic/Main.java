@@ -91,18 +91,27 @@ public class Main extends Application{
                 String content = sc.useDelimiter("\\@").next();
                 loadSpecs.add(content);
             }
+            sc.close();
+            try {
+                timeForLevel = Double.parseDouble(loadSpecs.get(1));
+                visRowsCount = Integer.parseInt(loadSpecs.get(3));
+                score.setText(Integer.toString(Integer.parseInt(loadSpecs.get(2))));
+                level = Integer.parseInt(loadSpecs.get(0));
+                lives.setText(Integer.toString(Integer.parseInt(loadSpecs.get(4))));
 
-            timeForLevel = Double.parseDouble(loadSpecs.get(1));
-            visRowsCount = Integer.parseInt(loadSpecs.get(3));
-            score.setText(Integer.toString(Integer.parseInt(loadSpecs.get(2))));
-            level = Integer.parseInt(loadSpecs.get(0));
-            lives.setText(Integer.toString(Integer.parseInt(loadSpecs.get(4))));
-
-            initializeLevel(level);
-            showMainMenu(false);
-            setTime();
-            animTimer.start();
-            isGameRunning = true;
+                initializeLevel(level);
+                showMainMenu(false);
+                setTime();
+                animTimer.start();
+                isGameRunning = true;
+            }
+            catch(Exception e){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error!");
+                alert.setHeaderText(null);
+                alert.setContentText("Save file is unreadable!");
+                alert.showAndWait();
+            }
         }
         catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -111,6 +120,7 @@ public class Main extends Application{
             alert.setContentText("No save file found!");
             alert.showAndWait();
         }
+
     }
     @FXML
     void quitGame(){
