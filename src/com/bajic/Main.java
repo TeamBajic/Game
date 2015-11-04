@@ -169,6 +169,32 @@ public class Main extends Application{
                 Move.moveFrogger(0, -SQUARE_SIZE);
                 break;
             }
+            // Alternative controls - WASD
+            case "W":{
+                int row = (int) (frogger.getLayoutY() / SQUARE_SIZE);
+                if(!visitedRows.get(row)){
+                    visitedRows.set(row, true);
+                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 10));
+                }
+                frogger.setRotate(0);
+                Move.moveFrogger(0, -SQUARE_SIZE);
+                break;
+            }
+            case "S":{
+                frogger.setRotate(-180);
+                Move.moveFrogger(0, SQUARE_SIZE);
+                break;
+            }
+            case "D":{
+                frogger.setRotate(90);
+                Move.moveFrogger(SQUARE_SIZE, 0);
+                break;
+            }
+            case "A":{
+                frogger.setRotate(-90);
+                Move.moveFrogger(-SQUARE_SIZE, 0);
+                break;
+            }
         }
     }
 
