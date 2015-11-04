@@ -8,9 +8,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -41,8 +43,53 @@ public class Main extends Application{
     public static Text time;
     private Timeline timeline;
     private IntegerProperty timeSeconds;
+    public static Scene scene;
+    public static boolean isGameRunning = false;
 
     public static ArrayList<MyImage> images = new ArrayList<>();
+
+    public AnimationTimer at = new AnimationTimer() {
+        public void handle(long currentNanoTime) {
+            time.setText(Integer.toString(timeSeconds.getValue()));
+            // Timer reaches 0 - lose life and restart.
+            if(timeSeconds.getValue() == 0){
+                setTime();
+                LoseLife();
+            }
+            Move.moveImages(images);
+            // Handle user input.
+            scene.setOnKeyPressed(
+                    e -> {
+                        String code = e.getCode().toString();
+                        onKeyPress(code);
+                    });
+        }
+    };
+    @FXML
+    Button newGameButton,loadGameButton,quitGameButton;
+
+    @FXML
+    void startNewGame(){
+        showMainMenu(false);
+        setTime();
+        at.start();
+        isGameRunning = true;
+    }
+    @FXML
+    void loadGame(){
+
+    }
+    @FXML
+    void quitGame(){
+        System.exit(0);
+    }
+
+    void showMainMenu(boolean visible){
+        newGameButton.setVisible(visible);
+        loadGameButton.setVisible(visible);
+        quitGameButton.setVisible(visible);
+    }
+
 
     // when you reach the top of the screen you go to the next scene of the level
     // and also if you go to the bottom you go back to the previous one.
@@ -66,33 +113,14 @@ public class Main extends Application{
             // Set player starting position.
             froggerStartingPositionX = frogger.getLayoutX();
             froggerStartingPositionY = frogger.getLayoutY();
-            Scene scene = new Scene(root);
+            scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Frogger");
             // Load level 1.
             initializeLevel(1);
             setTime();
 
-            new AnimationTimer()
-            {
-                public void handle(long currentNanoTime)
-                {
-                    time.setText(Integer.toString(timeSeconds.getValue()));
-                    // Timer reaches 0 - lose life and restart.
-                    if(timeSeconds.getValue() == 0){
-                        setTime();
-                        LoseLife();
-                    }
-                    Move.moveImages(images);
-                    // Handle user input.
-                    scene.setOnKeyPressed(
-                            e -> {
-                                String code = e.getCode().toString();
-                                onKeyPress(code);
-                            });
-                }
-            }.start();
-
+            at.start();
             primaryStage.show();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,40 +188,55 @@ public class Main extends Application{
         if(Move.moving){
             return;
         }
-        switch (code){
-            case "A":
-            case "LEFT": {
-                frogger.setRotate(-90);
-                Move.moveFrogger(-SQUARE_SIZE, 0);
-                break;
-            }
-            case "D":
-            case "RIGHT":{
-                frogger.setRotate(90);
-                Move.moveFrogger(SQUARE_SIZE, 0);
-                break;
-            }
-            case "S":
-            case "DOWN":{
-                frogger.setRotate(-180);
-                Move.moveFrogger(0, SQUARE_SIZE);
-
-                break;
-            }
-            case "W":
-            case "UP":{
-                int row = (int) (frogger.getLayoutY() / SQUARE_SIZE);
-                if(!visitedRows.get(row)){
-                    visitedRows.set(row, true);
-                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 10));
+        if(isGameRunning){
+            switch (code){
+                case "A":
+                case "LEFT": {
+                    frogger.setRotate(-90);
+                    Move.moveFrogger(-SQUARE_SIZE, 0);
+                    break;
                 }
-                frogger.setRotate(0);
-                Move.moveFrogger(0, -SQUARE_SIZE);
+                case "D":
+                case "RIGHT":{
+                    frogger.setRotate(90);
+                    Move.moveFrogger(SQUARE_SIZE, 0);
+                    break;
+                }
+                case "S":
+                case "DOWN":{
+                    frogger.setRotate(-180);
+                    Move.moveFrogger(0, SQUARE_SIZE);
 
-                break;
+                    break;
+                }
+                case "W":
+                case "UP":{
+                    int row = (int) (frogger.getLayoutY() / SQUARE_SIZE);
+                    if(!visitedRows.get(row)){
+                        visitedRows.set(row, true);
+                        score.setText(Integer.toString(Integer.parseInt(score.getText()) + 10));
+                    }
+                    frogger.setRotate(0);
+                    Move.moveFrogger(0, -SQUARE_SIZE);
+
+                    break;
+                }
             }
         }
-    }
+        switch (code) {
+            case "ESCAPE":
+                at.stop();
+                isGameRunning = false;
+                break;
+            case "SPACE":
+                at.start();
+                isGameRunning = true;
+                break;
+        }
+        }
+
+
+
 
     // Lose a life.
     public static void LoseLife() {
