@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 
 public class Main extends Application{
 
+    public static final double HUD_SPACE = 60;
     public static final int FRAMES_PER_SECOND = 60;
     public static final int SPEED_FACTOR = 15;
     public static final int SECOND_IN_MILLISECONDS = 1000;
@@ -39,6 +40,7 @@ public class Main extends Application{
     public static Parent root = null;
     public static Scene scene;
     public static Pane window;
+    public static Pane hud;
     public static Node frogger;
     public static Text lives;
     public static Text score;
@@ -68,6 +70,7 @@ public class Main extends Application{
     void startNewGame(){
         showMainMenu(false);
         animTimer.start();
+        setTime();
         isGameRunning = true;
     }
 
@@ -140,6 +143,7 @@ public class Main extends Application{
             root = FXMLLoader.load(getClass().getResource("Game window.fxml"));
             frogger = root.lookup("#frogger");
             window = (Pane) root.lookup("#window");
+            hud = (Pane) root.lookup("#hud");
             lives = (Text) root.lookup("#lives");
             score = (Text) root.lookup("#score");
             time = (Text) root.lookup("#time");
@@ -182,31 +186,32 @@ public class Main extends Application{
                 case "A":
                 case "LEFT": {
                     frogger.setRotate(-90);
-                    Move.moveFrogger(-level.squareSize, 0);
+                    Move.moveFrogger(-level.getSquareSize(), 0);
                     break;
                 }
                 case "D":
                 case "RIGHT":{
                     frogger.setRotate(90);
-                    Move.moveFrogger(level.squareSize, 0);
+                    Move.moveFrogger(level.getSquareSize(), 0);
                     break;
                 }
                 case "S":
                 case "DOWN":{
                     frogger.setRotate(-180);
-                    Move.moveFrogger(0, level.squareSize);
+                    Move.moveFrogger(0, level.getSquareSize());
 
                     break;
                 }
                 case "W":
                 case "UP":{
-                    int row = (int) (frogger.getLayoutY() / level.squareSize);
+                    //score add
+                    int row = (int) (frogger.getLayoutY() / level.getSquareSize());
                     if(!level.getVisitedRows().get(row)){
                         level.getVisitedRows().set(row, true);
                         score.setText(Integer.toString(Integer.parseInt(score.getText()) + 10));
                     }
                     frogger.setRotate(0);
-                    Move.moveFrogger(0, -level.squareSize);
+                    Move.moveFrogger(0, -level.getSquareSize());
 
                     break;
                 }

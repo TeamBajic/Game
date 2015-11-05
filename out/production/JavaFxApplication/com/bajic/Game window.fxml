@@ -8,19 +8,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:controller="com.bajic.Main" id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bajic.Main">
    <children>
-      <ImageView id="frogger" fitHeight="35.0" fitWidth="35.0" layoutX="283.0" layoutY="555.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Files/Sprites/Frogger_sprite.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="22.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives" />
-      <Text layoutX="101.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
-      <Text id="lives" layoutX="57.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text id="score" layoutX="139.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <Text layoutX="499.0" layoutY="625.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
-      <Text id="time" layoutX="537.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60" />
 
       <Button fx:id="newGameButton" layoutX="215.0" layoutY="78.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="57.0" prefWidth="206.0" text="New game" textAlignment="CENTER" textFill="#25ae1b" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
          <font>
@@ -40,6 +29,26 @@
             <Font size="27.0" />
          </font>
       </Button>
+      <ImageView id="frogger" layoutX="283.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Files/Sprites/Frogger_sprite.png" />
+         </image>
+      </ImageView>
+      <Pane id="hud" layoutX="-4.0" layoutY="597.0" prefHeight="50.0" prefWidth="609.0">
+         <children>
+            <ImageView fitHeight="43.0" fitWidth="59.0" layoutX="282.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" scaleX="14.0">
+               <image>
+                  <Image url="@../../Files/Sprites/HUD.jpg" />
+               </image>
+            </ImageView>
+            <Text id="score" layoutX="136.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text layoutX="99.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
+            <Text id="lives" layoutX="57.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+            <Text layoutX="502.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
+            <Text id="time" layoutX="541.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60" />
+            <Text layoutX="24.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives" />
+         </children>
+      </Pane>
 
    </children>
 </Pane>
