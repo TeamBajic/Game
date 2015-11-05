@@ -15,33 +15,36 @@ public final class Move {
 
         //Check for trying to move outside of the bounds
         if(y == 0) {
-            if(Math.round(Main.frogger.getLayoutX() + x) <= 0 || Math.round(Main.frogger.getLayoutX() + x) >= Main.window.getWidth()) {
+            if(Math.round(Main.frogger.getLayoutX() + x) <= 0 ||
+            Math.round(Main.frogger.getLayoutX() + x) >= Main.window.getWidth()) {
                 return;
             }
         }
         else {
             if (Math.round(Main.frogger.getLayoutY() + y) <= 0) {
-
-                for (int i = 0; i < Main.images.size(); i++) {
-                    Main.images.get(i).getImageView().setLayoutY(Main.images.get(i).getImageView().getLayoutY() - Main.window.getHeight());
-                }
-
+                Main.levelIndex++;
                 Main.currentLevelScene++;
-                Main.frogger.setLayoutY(Main.froggerStartingPositionY);
+                for (int i = 0; i < Main.level.getImages().size(); i++) {
+                    Main.level.getImages().get(i).getImageView().setVisible(false);
+                }
+                Main.frogger.setLayoutX(Main.level.getFroggerStartingPositionX());
+                Main.frogger.setLayoutY(Main.level.getFroggerStartingPositionY());
+                Main.initializeLevel(Main.levelIndex);
 
                 return;
-            } else if (Math.round(Main.frogger.getLayoutY() + y + Main.SQUARE_SIZE) >= Main.window.getHeight()) {
+            } else if (Math.round(Main.frogger.getLayoutY() + y + Main.level.squareSize) >= Main.window.getHeight()) {
 
                 if (Main.currentLevelScene == 0) {
                     return;
                 }
-
-                for (int i = 0; i < Main.images.size(); i++) {
-                    Main.images.get(i).getImageView().setLayoutY(Main.images.get(i).getImageView().getLayoutY() + Main.window.getHeight());
-                }
-
                 Main.currentLevelScene--;
-                Main.frogger.setLayoutY(0);
+                Main.levelIndex--;
+                for (int i = 0; i < Main.level.getImages().size(); i++) {
+                    Main.level.getImages().get(i).getImageView().setVisible(false);
+                }
+                Main.frogger.setLayoutX(Main.level.getFroggerStartingPositionX());
+                Main.frogger.setLayoutY(Main.level.getFroggerStartingPositionY());
+                Main.initializeLevel(Main.levelIndex);
 
                 return;
             }
@@ -78,18 +81,18 @@ public final class Move {
                 double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * images.get(i).getSpeed() * Main.SPEED_FACTOR;
                 double imageWidth = images.get(i).getImageView().getLayoutBounds().getWidth();
                 if(images.get(i).isFacingLeft()){
-                    if(images.get(i).getImageView().getLayoutX() < 0 - imageWidth - Main.SQUARE_SIZE){
+                    if(images.get(i).getImageView().getLayoutX() < 0 - imageWidth - Main.level.squareSize){
                         images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + Main.window.getWidth() +
-                                imageWidth + Main.SQUARE_SIZE);
+                                imageWidth + Main.level.squareSize);
                     }
                     else {
                         images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - distance);
                     }
                 }
                 else {
-                    if(images.get(i).getImageView().getLayoutX() > Main.window.getWidth() + imageWidth  + Main.SQUARE_SIZE){
+                    if(images.get(i).getImageView().getLayoutX() > Main.window.getWidth() + imageWidth  + Main.level.squareSize){
                         images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - Main.window.getWidth() -
-                                imageWidth  - Main.SQUARE_SIZE);
+                                imageWidth  - Main.level.squareSize);
                     } else {
                         images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + distance);
                     }
