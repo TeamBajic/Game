@@ -3,17 +3,19 @@ package com.bajic;
 import javafx.scene.image.ImageView;
 
 /**
- * Created by name on 2.11.2015 ã..
+ * Created by name on 2.11.2015 ï¿½..
  */
 public class MyImage {
     private ImageView imageView;
     private boolean facingLeft;
     private double speed;
+    private boolean carrier;
 
-    public MyImage(ImageView image, boolean facingLeft, double speed) {
-        this.imageView = image;
-        this.facingLeft = facingLeft;
-        this.speed = speed;
+    public MyImage(ImageView image, boolean facingLeft, double speed, boolean carrier) {
+        this.setImageView(image);
+        this.setFacingLeft(facingLeft);
+        this.setSpeed(speed);
+        this.setCarrier(carrier);
     }
 
     public void setImageView(ImageView imageView) {
@@ -24,8 +26,12 @@ public class MyImage {
         this.facingLeft = facingLeft;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public void setCarrier(boolean carrier) {
+        this.carrier = carrier;
     }
 
     public ImageView getImageView() {
@@ -41,4 +47,9 @@ public class MyImage {
     public double getSpeed() {
         return speed;
     }
+
+    public boolean isCarrier() {
+        return carrier;
+    }
+
 }

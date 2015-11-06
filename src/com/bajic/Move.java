@@ -9,6 +9,15 @@ public final class Move {
 
     public static boolean moving = false;
     public static boolean stopped = false;
+    private static MyImage carrierItem = null;
+
+    public static MyImage getCarrierItem() {
+        return carrierItem;
+    }
+
+    public static void setCarrierItem(MyImage carrierItem) {
+        Move.carrierItem = carrierItem;
+    }
 
     // Move frog.
     public static void moveFrogger(double x, double y){
@@ -18,12 +27,7 @@ public final class Move {
             return;
         }
         //if the windows is between the background bounds we need to move everything except frogger to mimic the movement of camera
-        double backgroundWidth = Main.level.getBackgroundImage().getBoundsInParent().getWidth();
-        double backgroundHeight = Main.level.getBackgroundImage().getBoundsInParent().getHeight();
-        if((froggerIsInXCenter() &&
-          ((x > 0 && cameraCanBeMovedRight(backgroundWidth)) || (x < 0 && cameraCanBeMovedLeft()))) ||
-           (froggerIsInYCenter() &&
-           ((y < 0 && cameraCanBeMovedUp()) || (y > 0 && cameraCanBeMovedDown(backgroundHeight))))){
+        if(isAbleToMoveEverything(x, y)){
             MoveEverything(x, y);
             return;
         }
@@ -51,6 +55,15 @@ public final class Move {
                 }
             }
         }.start();
+    }
+
+    private static boolean isAbleToMoveEverything(double x, double y) {
+        double backgroundWidth = Main.level.getBackgroundImage().getBoundsInParent().getWidth();
+        double backgroundHeight = Main.level.getBackgroundImage().getBoundsInParent().getHeight();
+        return (froggerIsInXCenter() &&
+          ((x > 0 && cameraCanBeMovedRight(backgroundWidth)) || (x < 0 && cameraCanBeMovedLeft()))) ||
+           (froggerIsInYCenter() &&
+           ((y < 0 && cameraCanBeMovedUp()) || (y > 0 && cameraCanBeMovedDown(backgroundHeight))));
     }
 
     private static boolean isInvalidAnimationMove(double x, double y) {
@@ -104,6 +117,7 @@ public final class Move {
             public void handle(long currentNanoTime)
             {
                 if(stopped){
+                    setCarrierItem(null);
                     currentFrames[0] = (int) (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND) + 1;
                     moving = false;
                     stopped = false;
@@ -112,6 +126,9 @@ public final class Move {
                 if(currentFrames[0] < Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND){
                     for (int i = 0; i < Main.level.getImages().size(); i++) {
                         ImageView currentImage = Main.level.getImages().get(i).getImageView();
+                        if(currentImage.equals(getCarrierItem())){
+                            continue;
+                        }
                         currentImage.relocate(currentImage.getLayoutX() - x / (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND),
                                 currentImage.getLayoutY() - y / (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND));
                     }
@@ -122,6 +139,7 @@ public final class Move {
                     moving = true;
                 }
                 else {
+                    setCarrierItem(null);
                     moving = false;
                     this.stop();
                 }
@@ -157,28 +175,70 @@ public final class Move {
 
     // Move enemies on the screen.
     public static void moveImages(ArrayList<MyImage> images) {
+        boolean willDie = false;
         for (int i = 0; i < images.size(); i++) {
-                double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * images.get(i).getSpeed() * Main.SPEED_FACTOR;
-                if(images.get(i).isFacingLeft()){
-                    if(!images.get(i).getImageView().getBoundsInParent().intersects(Main.level.getBackgroundImage().getBoundsInParent())){
-                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() +
-                                Main.level.getBackgroundImage().getBoundsInParent().getWidth() + Main.level.getSquareSize());
-                    }
-                    else {
-                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - distance);
-                    }
+            double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * images.get(i).getSpeed() * Main.SPEED_FACTOR;
+            if(images.get(i).isFacingLeft()){
+                if(!images.get(i).getImageView().getBoundsInParent().intersects(Main.level.getBackgroundImage().getBoundsInParent())){
+                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() +
+                            Main.level.getBackgroundImage().getBoundsInParent().getWidth() +
+                            images.get(i).getImageView().getBoundsInParent().getWidth());
                 }
                 else {
-                    if(!images.get(i).getImageView().getBoundsInParent().intersects(Main.level.getBackgroundImage().getBoundsInParent())){
-                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() -
-                                Main.level.getBackgroundImage().getBoundsInParent().getWidth() - Main.level.getSquareSize());
-                    } else {
-                        images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + distance);
-                    }
+                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() - distance);
                 }
-                if(imageOverlapsFrogger(images.get(i).getImageView())){
+            }
+            else {
+                if(!images.get(i).getImageView().getBoundsInParent().intersects(Main.level.getBackgroundImage().getBoundsInParent())){
+                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() -
+                            Main.level.getBackgroundImage().getBoundsInParent().getWidth() -
+                            images.get(i).getImageView().getBoundsInParent().getWidth());
+                } else {
+                    images.get(i).getImageView().setLayoutX(images.get(i).getImageView().getLayoutX() + distance);
+                }
+            }
+            if(imageOverlapsFrogger(images.get(i).getImageView()) && !moving){
+                if(images.get(i).isCarrier()){
+                    setCarrierItem(images.get(i));
+                }
+                else{
+                    willDie = true;
+                }
+            }
+        }
+        if(getCarrierItem() != null){
+            boolean movingLeft = false;
+            boolean movingRight = false;
+            double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * getCarrierItem().getSpeed() * Main.SPEED_FACTOR;
+            if(isAbleToMoveEverything(distance, 0)) {
+                MoveEverything(distance, 0);
+                if (movingLeft) {
+                    getCarrierItem().getImageView().setLayoutX(getCarrierItem().getImageView().getLayoutX() + distance);
+                }
+                if (movingRight) {
+                    getCarrierItem().getImageView().setLayoutX(getCarrierItem().getImageView().getLayoutX() - distance);
+                }
+            }
+            else if (getCarrierItem().isFacingLeft()){
+                if(Main.frogger.getLayoutX() - Main.frogger.getLayoutBounds().getWidth() / 2 < 0){
                     Main.LoseLife();
+                } else {
+                    movingLeft = true;
+                    Main.frogger.setLayoutX(Main.frogger.getLayoutX() - distance);
                 }
+            } else {
+                if(Main.frogger.getLayoutX() + Main.frogger.getLayoutBounds().getWidth() / 2 > Main.window.getWidth()){
+                    Main.LoseLife();
+                } else {
+                    movingRight = true;
+                    Main.frogger.setLayoutX(Main.frogger.getLayoutX() + distance);
+                }
+            }
+            return;
+        }
+        if(willDie){
+            Main.LoseLife();
+            Main.ResetEverything();
         }
     }
 

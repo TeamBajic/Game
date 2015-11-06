@@ -244,4 +244,15 @@ public class Main extends Application{
         }
         Move.stopped = true;
     }
+
+    public static void ResetEverything() {
+        double differenceX = Main.level.getBackgroundImageStartingX() - Main.level.getBackgroundImage().getLayoutX();
+        double differenceY = Main.level.getBackgroundImageStartingY() - Main.level.getBackgroundImage().getLayoutY();
+        for (int i = 0; i < Main.level.getImages().size(); i++) {
+            Main.level.getImages().get(i).getImageView().relocate(Main.level.getImages().get(i).getImageView().getLayoutX() + differenceX,
+                                                                  Main.level.getImages().get(i).getImageView().getLayoutY() + differenceY);
+        }
+        Main.level.getBackgroundImage().relocate(Main.level.getBackgroundImage().getLayoutX() + differenceX,
+                Main.level.getBackgroundImage().getLayoutY() + differenceY);
+    }
 }

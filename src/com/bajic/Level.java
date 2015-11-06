@@ -17,59 +17,58 @@ public class Level{
     private int visRowsCount = 0;
     private ArrayList<MyImage> images = new ArrayList<>();
     private ImageView backgroundImage;
+    private double backgroundImageStartingX;
+    private double backgroundImageStartingY;
 
     public Level(int levelIndex){
-        backgroundImage = new ImageView(new Image("Files/Sprites/Frogger_background.jpg"));
-        double levelHeight = backgroundImage.getBoundsInParent().getHeight();
-        Main.window.getChildren().add(backgroundImage);
-        backgroundImage.toBack();
-        squareSize = backgroundImage.getBoundsInParent().getWidth() / 20; // background width is 900
-        backgroundImage.relocate(-(squareSize * 3), -(levelHeight - Main.window.getPrefHeight()) - Main.HUD_SPACE);
-        Main.frogger.relocate(positionOnColumn(10),
-                positionOnRow(19) - Main.frogger.getBoundsInParent().getHeight() / 2);
-        this.setFroggerStartingPositionX(Main.frogger.getLayoutX());
-        this.setFroggerStartingPositionY(Main.frogger.getLayoutY());
+        CreateBackground();
         initializeLevel(levelIndex);
+        createWater();
     }
+
     public void initializeLevel(int level) {
         switch (level){
             case 1:{
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
-                createImage("Car.jpg", 11, 1, true,1);
-                createImage("Car.jpg", 11, 6, true,1);
-                createImage("Car.jpg", 11, 11, true,1);
-                createImage("Car.jpg", 10, 2, false,1);
-                createImage("Car.jpg", 10, 7, false,1);
-                createImage("Car.jpg", 10, 12, false,1);
-                createImage("Car.jpg", 9, 0, true,2);
-                createImage("Car.jpg", 9, 5, true,2);
-                createImage("Car.jpg", 9, 12, true,2);
-                createImage("Car.jpg", 8, 2, false,1);
-                createImage("Car.jpg", 8, 7, false,1);
-                createImage("Car.jpg", 8, 12, false,1);
+                createImage("Car.jpg", 18, 5, true,1, false);
+                createImage("Car.jpg", 18, 10, true,1, false);
+                createImage("Car.jpg", 18, 15, true,1, false);
+                createImage("Car.jpg", 17, 6, false,1, false);
+                createImage("Car.jpg", 17, 11, false,1, false);
+                createImage("Car.jpg", 17, 16, false,1, false);
+                createImage("Car.jpg", 16, 4, true,2, false);
+                createImage("Car.jpg", 16, 9, true,2, false);
+                createImage("Car.jpg", 16, 16, true,2, false);
+                createImage("Car.jpg", 15, 6, false,1, false);
+                createImage("Car.jpg", 15, 11, false,1, false);
+                createImage("Car.jpg", 15, 16, false,1, false);
+                createImage("Log.jpg", 11, 8, false,1, true);
+                Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 break;
             }
             case 2:{
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
-                createImage("Car.jpg", 11, 1, true,1);
-                createImage("Car.jpg", 11, 6, true,1);
-                createImage("Car.jpg", 11, 11, true,1);
-                createImage("Car.jpg", 10, 2, false,1);
-                createImage("Car.jpg", 10, 7, false,1);
-                createImage("Car.jpg", 10, 12, false,1);
-                createImage("Car.jpg", 9, 0, true,2);
-                createImage("Car.jpg", 9, 5, true,2);
-                createImage("Car.jpg", 9, 12, true,2);
-                createImage("Car.jpg", 8, 2, false,1);
-                createImage("Car.jpg", 8, 7, false,1);
-                createImage("Car.jpg", 8, 12, false,1);
-                createImage("Car.jpg", 7, 12, false,10);
+                createImage("Car.jpg", 18, 8, true,1, false);
+                createImage("Car.jpg", 18, 13, true,1, false);
+                createImage("Car.jpg", 18, 18, true,1, false);
+                createImage("Car.jpg", 17, 9, false,1, false);
+                createImage("Car.jpg", 17, 14, false,1, false);
+                createImage("Car.jpg", 17, 19, false,1, false);
+                createImage("Car.jpg", 16, 7, true,2, false);
+                createImage("Car.jpg", 16, 12, true,2, false);
+                createImage("Car.jpg", 16, 19, true,2, false);
+                createImage("Car.jpg", 15, 9, false,1, false);
+                createImage("Car.jpg", 15, 14, false,1, false);
+                createImage("Car.jpg", 15, 19, false,1, false);
+                createImage("Car.jpg", 14, 19, false,10, false);
                 break;
             }
         }
         Main.hud.toFront();
+        this.setFroggerStartingPositionX(Main.frogger.getLayoutX());
+        this.setFroggerStartingPositionY(Main.frogger.getLayoutY());
     }
 
     private double positionOnColumn(int column){
@@ -87,15 +86,41 @@ public class Level{
         }
     }
 
+    private void CreateBackground() {
+        backgroundImage = new ImageView(new Image("Files/Sprites/Frogger_background.jpg"));
+        Main.window.getChildren().add(backgroundImage);
+        backgroundImage.toBack();
+        squareSize = backgroundImage.getBoundsInParent().getWidth() / 20; // background width is 900
+        this.setBackgroundImageStartingX(-(squareSize * 3));
+        this.setBackgroundImageStartingY(-(differenceBetweenBackgroundAndWindow()));
+        backgroundImage.relocate(getBackgroundImageStartingX(), getBackgroundImageStartingY());
+        Main.frogger.relocate(positionOnColumn(10),
+                positionOnRow(19) - Main.frogger.getBoundsInParent().getHeight() / 2);
+    }
+
+    private void createWater() {
+        ImageView water = new ImageView(new Image("Files/Sprites/Water.png"));
+        water.relocate(getBackgroundImage().getLayoutX(), getBackgroundImage().getLayoutY() + squareSize / 3);
+        images.add(new MyImage(water, false, 0, false));
+        Main.window.getChildren().add(water);
+        water.toBack();
+        getBackgroundImage().toBack();
+    }
+
+    private double differenceBetweenBackgroundAndWindow(){
+        return backgroundImage.getBoundsInParent().getHeight() - Main.window.getPrefHeight();
+    }
+
     // Create an image from a picture in resources.
-    public void createImage(String name, int row, int column, boolean facingLeft, double speed){
+    public void createImage(String name, int row, int column, boolean facingLeft, double speed, boolean carrier){
         ImageView image = new ImageView(new Image("Files/Sprites/" + name));
-        image.relocate(column * squareSize, row * squareSize);
+        image.relocate(positionOnColumn(column), positionOnRow(row));
         if(facingLeft){
             image.setRotate(180);
         }
-        images.add(new MyImage(image, facingLeft, speed));
+        images.add(new MyImage(image, facingLeft, speed, carrier));
         Main.window.getChildren().add(image);
+        image.toBack();
     }
 
     public void setFroggerStartingPositionX(double froggerStartingPositionX) {
@@ -130,6 +155,14 @@ public class Level{
         this.backgroundImage = backgroundImage;
     }
 
+    public void setBackgroundImageStartingX(double backgroundImageStartingX) {
+        this.backgroundImageStartingX = backgroundImageStartingX;
+    }
+
+    public void setBackgroundImageStartingY(double backgroundImageStartingY) {
+        this.backgroundImageStartingY = backgroundImageStartingY;
+    }
+
     public double getSquareSize() {
         return squareSize;
     }
@@ -160,5 +193,13 @@ public class Level{
 
     public ArrayList<MyImage> getImages() {
         return images;
+    }
+
+    public double getBackgroundImageStartingX() {
+        return backgroundImageStartingX;
+    }
+
+    public double getBackgroundImageStartingY() {
+        return backgroundImageStartingY;
     }
 }
