@@ -89,9 +89,9 @@ public final class Move {
                 Main.frogger.setLayoutX(Main.level.getFroggerStartingPositionX());
                 Main.frogger.setLayoutY(Main.level.getFroggerStartingPositionY());
                 Main.initializeLevel(Main.levelIndex);
-
-                return true;
                 */
+                return true;
+
             }
         }
         return false;

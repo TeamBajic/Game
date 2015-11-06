@@ -34,19 +34,19 @@
             <Image url="@../../Files/Sprites/Frogger_sprite.png" />
          </image>
       </ImageView>
-      <Pane id="hud" layoutX="-4.0" layoutY="597.0" prefHeight="50.0" prefWidth="609.0">
+      <Pane id="hud" layoutX="-4.0" layoutY="604.0" prefHeight="30.0" prefWidth="609.0">
          <children>
-            <ImageView fitHeight="43.0" fitWidth="59.0" layoutX="282.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" scaleX="14.0">
+            <ImageView fitHeight="43.0" fitWidth="59.0" layoutX="276.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true" scaleX="14.0">
                <image>
                   <Image url="@../../Files/Sprites/HUD.jpg" />
                </image>
             </ImageView>
-            <Text id="score" layoutX="136.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-            <Text layoutX="99.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
-            <Text id="lives" layoutX="57.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-            <Text layoutX="502.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
-            <Text id="time" layoutX="541.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60" />
-            <Text layoutX="24.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives" />
+            <Text id="score" layoutX="130.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text layoutX="93.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
+            <Text id="lives" layoutX="51.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+            <Text layoutX="496.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
+            <Text id="time" layoutX="535.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60" />
+            <Text layoutX="18.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives" />
          </children>
       </Pane>
 

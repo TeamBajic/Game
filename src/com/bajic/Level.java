@@ -52,7 +52,7 @@ public class Level{
             }
             case 2:{
                 setTimeForLevel(60);
-                initializeVisitedRows(13);
+                initializeVisitedRows(20);
                 createImage("Car.jpg", 11, 1, true,1);
                 createImage("Car.jpg", 11, 6, true,1);
                 createImage("Car.jpg", 11, 11, true,1);

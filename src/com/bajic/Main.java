@@ -205,7 +205,7 @@ public class Main extends Application{
                 case "W":
                 case "UP":{
                     //score add
-                    int row = (int) (frogger.getLayoutY() / level.getSquareSize());
+                    int row = (int) ((frogger.getLayoutY() - level.getBackgroundImage().getLayoutY()) / level.getSquareSize());
                     if(!level.getVisitedRows().get(row)){
                         level.getVisitedRows().set(row, true);
                         score.setText(Integer.toString(Integer.parseInt(score.getText()) + 10));
