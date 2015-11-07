@@ -27,9 +27,8 @@ import java.util.logging.Logger;
 
 public class Main extends Application{
 
-    public static final double HUD_SPACE = 60;
     public static final int FRAMES_PER_SECOND = 60;
-    public static final int SPEED_FACTOR = 15;
+    public static final int SPEED_FACTOR = 2;
     public static final int SECOND_IN_MILLISECONDS = 1000;
     public static final double ANIMATION_TIME = 0.15;
     private static Timeline timeline;
@@ -243,6 +242,7 @@ public class Main extends Application{
             level.getVisitedRows().set(i, false);
         }
         Move.stopped = true;
+        Move.setCarrierItem(null);
     }
 
     public static void ResetEverything() {
