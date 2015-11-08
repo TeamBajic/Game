@@ -227,6 +227,12 @@ public class Main extends Application{
     }
 
     public static void initializeLevel(int levelIndex) {
+        if(level != null){
+            for (int i = 0; i < level.getImages().size(); i++) {
+                level.getImages().get(i).getImageView().setVisible(false);
+            }
+            level.getBackgroundImage().setVisible(false);
+        }
         level = new com.bajic.Level(levelIndex);
         setTime();
     }

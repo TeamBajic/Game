@@ -27,6 +27,7 @@ public class Level{
     }
 
     public void initializeLevel(int level) {
+
         switch (level){
             case 1:{
                 setTimeForLevel(60);
