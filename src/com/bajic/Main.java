@@ -24,6 +24,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -142,6 +144,7 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent e) {
                 hidePauseMenu();
+                isGameRunning = true;
                 animTimer.start();
             }
         });
@@ -163,9 +166,18 @@ public class Main extends Application{
         window.getChildren().remove(resumeGameButton);
         window.getChildren().remove(saveGameButton);
     }
-    void saveGame(){
+    void saveGame() {
         //save game logic goes here
-
+        String userHomeFolder = System.getProperty("user.home");
+        File saveFile = new File(userHomeFolder, "loadFile.txt");
+            try {
+                saveFile.createNewFile();
+                PrintWriter writer = new PrintWriter(saveFile, "UTF-8");
+                writer.print("" + levelIndex + "@" + time.getText() + "@" + score.getText() + "@" + level.getVisRowsCount() + "@" + lives.getText());
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
 
