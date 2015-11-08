@@ -1,5 +1,6 @@
 package com.bajic;
 
+import com.sun.java.swing.plaf.windows.resources.windows;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -8,6 +9,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -51,7 +54,7 @@ public class Main extends Application{
             // Timer reaches 0 - lose life and restart.
             if(timeSeconds.getValue() == 0){
                 setTime();
-                LoseLife();
+                loseLife();
             }
             Move.moveImages(level.getImages());
             // Handle user input.
@@ -64,6 +67,9 @@ public class Main extends Application{
     };
     @FXML
     Button newGameButton,loadGameButton,quitGameButton;
+
+    Button resumeGameButton = new Button();
+    Button saveGameButton = new Button();
 
     @FXML
     void startNewGame(){
@@ -124,6 +130,44 @@ public class Main extends Application{
         loadGameButton.setVisible(visible);
         quitGameButton.setVisible(visible);
     }
+
+    void showPauseMenu(){
+
+        resumeGameButton.setLayoutX(215);
+        resumeGameButton.setLayoutY(78);
+        resumeGameButton.setText("Resume Game");
+        resumeGameButton.setPrefHeight(57);
+        resumeGameButton.setPrefWidth(206);
+        resumeGameButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                hidePauseMenu();
+                animTimer.start();
+            }
+        });
+        window.getChildren().add(resumeGameButton);
+       saveGameButton.setLayoutX(215);
+       saveGameButton.setLayoutY(147);
+       saveGameButton.setText("Save Game");
+       saveGameButton.setPrefHeight(57);
+       saveGameButton.setPrefWidth(206);
+       saveGameButton.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent e) {
+               saveGame();
+           }
+       });
+        window.getChildren().add(saveGameButton);
+    }
+    void hidePauseMenu(){
+        window.getChildren().remove(resumeGameButton);
+        window.getChildren().remove(saveGameButton);
+    }
+    void saveGame(){
+        //save game logic goes here
+
+    }
+
 
 
     // when you reach the top of the screen you go to the next scene of the levelIndex
@@ -220,16 +264,13 @@ public class Main extends Application{
             case "ESCAPE":
                 animTimer.stop();
                 isGameRunning = false;
-                break;
-            case "SPACE":
-                animTimer.start();
-                isGameRunning = true;
+                showPauseMenu();
                 break;
         }
     }
 
     // Lose a life.
-    public static void LoseLife() {
+    public static void loseLife() {
         lives.setText(Integer.toString(Integer.parseInt(lives.getText()) - 1));
         // No lives left.
         if(Integer.parseInt(lives.getText()) == 0){

@@ -216,14 +216,14 @@ public final class Move {
             }
             else if (getCarrierItem().isFacingLeft()){
                 if(Main.frogger.getLayoutX() - Main.frogger.getLayoutBounds().getWidth() / 2 < 0){
-                    Main.LoseLife();
+                    Main.loseLife();
                 } else {
                     Main.frogger.setLayoutX(Main.frogger.getLayoutX() - distance);
                     getCarrierItem().getImageView().setLayoutX(getCarrierItem().getImageView().getLayoutX() - distance);
                 }
             } else {
                 if(Main.frogger.getLayoutX() + Main.frogger.getLayoutBounds().getWidth() / 2 > Main.window.getWidth()){
-                    Main.LoseLife();
+                    Main.loseLife();
                 } else {
                     Main.frogger.setLayoutX(Main.frogger.getLayoutX() + distance);
                     getCarrierItem().getImageView().setLayoutX(getCarrierItem().getImageView().getLayoutX() + distance);
@@ -232,7 +232,7 @@ public final class Move {
             return;
         }
         if(willDie){
-            Main.LoseLife();
+            Main.loseLife();
             Main.ResetEverything();
         }
     }
