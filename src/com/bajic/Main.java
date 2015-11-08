@@ -1,6 +1,5 @@
 package com.bajic;
 
-import com.sun.java.swing.plaf.windows.resources.windows;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
