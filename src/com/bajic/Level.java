@@ -45,6 +45,7 @@ public class Level{
                 createImage("Car.jpg", 15, 11, false,1, false);
                 createImage("Car.jpg", 15, 16, false,1, false);
                 createImage("Log.jpg", 11, 5, false,1, true);
+                createImage("Log.jpg", 10, 5, false,1, true);
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 break;
             }

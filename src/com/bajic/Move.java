@@ -29,7 +29,7 @@ public final class Move {
         //if the windows is between the background bounds we need to move everything except frogger to mimic the movement of camera
         if(isAbleToMoveEverything(x, y)){
             moving = true;
-            MoveEverything(x, y);
+            MoveEverything(x, y, true);
             return;
         }
 
@@ -72,8 +72,8 @@ public final class Move {
     private static boolean isInvalidAnimationMove(double x, double y) {
         if(y == 0) {
             //if the frog will leave the bounds of the background image
-            if(Math.round(Main.frogger.getLayoutX() + x + Main.frogger.getBoundsInParent().getWidth()) <= 0 ||
-               Math.round(Main.frogger.getLayoutX() + x + Main.frogger.getBoundsInParent().getWidth()) >=
+            if(Math.round(Main.frogger.getLayoutX() + x) <= 0 ||
+               Math.round(Main.frogger.getLayoutX() + x + Main.frogger.getBoundsInParent().getWidth() / 2) >=
                        Math.round(Main.window.getPrefWidth())) {
                 return true;
             }
@@ -113,7 +113,7 @@ public final class Move {
         return false;
     }
 
-    private static void MoveEverything(final double x, final double y) {
+    private static void MoveEverything(final double x, final double y, boolean froggerIsMoving) {
         final int[] currentFrames = {0};
         new AnimationTimer()
         {
@@ -123,12 +123,15 @@ public final class Move {
                     currentFrames[0] = (int) (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND) + 1;
                     moving = false;
                     stopped = false;
+                    if(froggerIsMoving){
+                        setCarrierItem(null);
+                    }
                     this.stop();
                 }
                 if(currentFrames[0] < Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND){
                     for (int i = 0; i < Main.level.getImages().size(); i++) {
                         MyImage currentImage = Main.level.getImages().get(i);
-                        if(currentImage.equals(getCarrierItem()) && !moving){
+                        if(currentImage.equals(getCarrierItem()) && !froggerIsMoving){
                             continue;
                         }
                         currentImage.getImageView().relocate(currentImage.getImageView().getLayoutX() - x / (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND),
@@ -140,6 +143,9 @@ public final class Move {
                     currentFrames[0]++;
                 }
                 else {
+                    if(froggerIsMoving){
+                        setCarrierItem(null);
+                    }
                     moving = false;
                     this.stop();
                 }
@@ -181,9 +187,7 @@ public final class Move {
             if (imageOverlapsFrogger(images.get(i).getImageView()) && !moving){
                 if(images.get(i).isCarrier()){
                     setCarrierItem(images.get(i));
-                    if(isAbleToMoveEverything(distance, 0)){
-                        continue;
-                    }
+                    continue;
                 }
                 else{
                     willDie = true;
@@ -212,7 +216,7 @@ public final class Move {
         if(getCarrierItem() != null){
             double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * getCarrierItem().getSpeed() * Main.SPEED_FACTOR;
             if(isAbleToMoveEverything(distance, 0)) {
-                MoveEverything(distance, 0);
+                MoveEverything(distance, 0, false);
             }
             else if (getCarrierItem().isFacingLeft()){
                 if(Main.frogger.getLayoutX() - Main.frogger.getLayoutBounds().getWidth() / 2 < 0){
