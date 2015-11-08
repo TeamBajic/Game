@@ -20,17 +20,22 @@ public final class Move {
     }
 
     // Move frog.
-    public static void moveFrogger(double x, double y){
-
+    public static void moveFrogger(double x, double y) {
         //Check for an invalid move
         if (isInvalidAnimationMove(x, y)) {
             return;
         }
+
         //if the windows is between the background bounds we need to move everything except frogger to mimic the movement of camera
         if(isAbleToMoveEverything(x, y)){
             moving = true;
             MoveEverything(x, y, true);
             return;
+        }
+
+        //check if the frog reached the end of the current level
+        if(Main.level.getVisitedRows().get(0)) {
+            Main.initializeLevel(++Main.levelIndex, 100);
         }
 
         final int[] currentFrames = {0};
@@ -83,7 +88,7 @@ public final class Move {
             // animation move
             if (Math.round(Main.frogger.getLayoutY() + y) <= 0) {
                 Main.levelIndex++;
-                Main.currentLevelScene++;
+                //Main.currentLevelScene++;
                 for (int i = 0; i < Main.level.getImages().size(); i++) {
                     Main.level.getImages().get(i).getImageView().setVisible(false);
                 }

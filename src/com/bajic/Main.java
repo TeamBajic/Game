@@ -93,13 +93,12 @@ public class Main extends Application{
             }
             sc.close();
             try {
-                level.setTimeForLevel(Double.parseDouble(loadSpecs.get(1)));
                 level.setVisRowsCount(Integer.parseInt(loadSpecs.get(3)));
                 score.setText(Integer.toString(Integer.parseInt(loadSpecs.get(2))));
                 levelIndex = Integer.parseInt(loadSpecs.get(0));
                 lives.setText(Integer.toString(Integer.parseInt(loadSpecs.get(4))));
 
-                initializeLevel(levelIndex);
+                initializeLevel(levelIndex,Integer.parseInt(loadSpecs.get(1)));
                 showMainMenu(false);
                 animTimer.start();
                 isGameRunning = true;
@@ -119,8 +118,25 @@ public class Main extends Application{
             alert.setContentText("No save file found!");
             alert.showAndWait();
         }
-
     }
+
+    void saveGame() {
+        String userHomeFolder = System.getProperty("user.home");
+        File saveFile = new File(userHomeFolder, "loadFile.txt");
+        try {
+            saveFile.createNewFile();
+            PrintWriter writer = new PrintWriter(saveFile, "UTF-8");
+            writer.print("" + levelIndex + "@" + time.getText() + "@" + score.getText() + "@" + level.getVisRowsCount() + "@" + lives.getText());
+            writer.close();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setHeaderText(null);
+            alert.setContentText("Could not save!");
+            alert.showAndWait();
+        }
+    }
+
     @FXML
     void quitGame(){
         System.exit(0);
@@ -165,20 +181,6 @@ public class Main extends Application{
         window.getChildren().remove(resumeGameButton);
         window.getChildren().remove(saveGameButton);
     }
-    void saveGame() {
-        //save game logic goes here
-        String userHomeFolder = System.getProperty("user.home");
-        File saveFile = new File(userHomeFolder, "loadFile.txt");
-            try {
-                saveFile.createNewFile();
-                PrintWriter writer = new PrintWriter(saveFile, "UTF-8");
-                writer.print("" + levelIndex + "@" + time.getText() + "@" + score.getText() + "@" + level.getVisRowsCount() + "@" + lives.getText());
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    }
-
 
 
     // when you reach the top of the screen you go to the next scene of the levelIndex
@@ -225,6 +227,18 @@ public class Main extends Application{
         timeline.playFromStart();
     }
 
+    public static void setTime(int loadTime) {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeSeconds = new SimpleIntegerProperty(loadTime);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(loadTime + 1),
+                        new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
+    }
+
     public static void initializeLevel(int levelIndex) {
         if(level != null){
             for (int i = 0; i < level.getImages().size(); i++) {
@@ -234,6 +248,17 @@ public class Main extends Application{
         }
         level = new com.bajic.Level(levelIndex);
         setTime();
+    }
+
+    public static void initializeLevel(int levelIndex, int LoadTime) {
+        if(level != null){
+            for (int i = 0; i < level.getImages().size(); i++) {
+                level.getImages().get(i).getImageView().setVisible(false);
+            }
+            level.getBackgroundImage().setVisible(false);
+        }
+        level = new com.bajic.Level(levelIndex);
+        setTime(LoadTime);
     }
 
     // Handle user input.
