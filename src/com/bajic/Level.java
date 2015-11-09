@@ -5,9 +5,6 @@ import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
-/**
- * Created by name on 5.11.2015 г..
- */
 public class Level{
     private double squareSize;
     private double froggerStartingPositionX;
@@ -24,6 +21,7 @@ public class Level{
         CreateBackground();
         initializeLevel(levelIndex);
         createWater();
+        createRiverBank();
     }
 
     public void initializeLevel(int level) {
@@ -33,45 +31,46 @@ public class Level{
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
                 //row,column,right/left,speed,kill/no
-                createImage("Car.jpg", 18, 5, true,1, false);
-                createImage("Car.jpg", 18, 10, true,1, false);
-                createImage("Car.jpg", 18, 15, true,1, false);
-                createImage("Car.jpg", 17, 6, false,1, false);
-                createImage("Car.jpg", 17, 11, false,1, false);
-                createImage("Car.jpg", 17, 16, false,1, false);
-                createImage("Car.jpg", 16, 4, true,2, false);
-                createImage("Car.jpg", 16, 9, true,2, false);
-                createImage("Car.jpg", 16, 16, true,2, false);
-                createImage("Car.jpg", 15, 6, false,1, false);
-                createImage("Car.jpg", 15, 11, false,1, false);
-                createImage("Car.jpg", 15, 16, false,1, false);
-                createImage("Log.jpg", 11, 7, false,1, true);
-                createImage("Log.jpg", 11, 0, false,1, true);
-                createImage("Log.jpg", 10, 5, false,1, true);
-                createImage("Log.jpg", 10, 0, false,1, true);
-                createImage("Log.jpg", 9, 8, false,2, true);
-                createImage("Log.jpg", 9, 1, false,2, true);
-                createImage("Log.jpg", 8, 2, false,1, true);
-                createImage("Log.jpg", 8, 7, false,1, true);
+
+                createImage("Car.png", 18, 5, true,1, false);
+                createImage("Car.png", 18, 10, true,1, false);
+                createImage("Car.png", 18, 15, true,1, false);
+                createImage("Car.png", 17, 6, false,1, false);
+                createImage("Car.png", 17, 11, false,1, false);
+                createImage("Car.png", 17, 16, false,1, false);
+                createImage("Car.png", 16, 4, true,2, false);
+                createImage("Car.png", 16, 9, true,2, false);
+                createImage("Car.png", 16, 16, true,2, false);
+                createImage("Car.png", 15, 6, false,1, false);
+                createImage("Car.png", 15, 11, false,1, false);
+                createImage("Car.png", 15, 16, false,1, false);
+                createImage("Log.png", 11, 7, false,1, true);
+                createImage("Log.png", 11, 0, false,1, true);
+                createImage("Log.png", 10, 5, false,1, true);
+                createImage("Log.png", 10, 0, false,1, true);
+                createImage("Log.png", 9, 8, false,2, true);
+                createImage("Log.png", 9, 1, false,2, true);
+                createImage("Log.png", 8, 2, false,1, true);
+                createImage("Log.png", 8, 7, false,1, true);
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 break;
             }
             case 2:{
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
-                createImage("Car.jpg", 18, 8, true,1, false);
-                createImage("Car.jpg", 18, 13, true,1, false);
-                createImage("Car.jpg", 18, 18, true,1, false);
-                createImage("Car.jpg", 17, 9, false,1, false);
-                createImage("Car.jpg", 17, 14, false,1, false);
-                createImage("Car.jpg", 17, 19, false,1, false);
-                createImage("Car.jpg", 16, 7, true,2, false);
-                createImage("Car.jpg", 16, 12, true,2, false);
-                createImage("Car.jpg", 16, 19, true,2, false);
-                createImage("Car.jpg", 15, 9, false,1, false);
-                createImage("Car.jpg", 15, 14, false,1, false);
-                createImage("Car.jpg", 15, 19, false,1, false);
-                createImage("Car.jpg", 14, 19, false,10, false);
+                createImage("Car.png", 18, 8, true,1, false);
+                createImage("Car.png", 18, 13, true,1, false);
+                createImage("Car.png", 18, 18, true,1, false);
+                createImage("Car.png", 17, 9, false,1, false);
+                createImage("Car.png", 17, 14, false,1, false);
+                createImage("Car.png", 17, 19, false,1, false);
+                createImage("Car.png", 16, 7, true,2, false);
+                createImage("Car.png", 16, 12, true,2, false);
+                createImage("Car.png", 16, 19, true,2, false);
+                createImage("Car.png", 15, 9, false,1, false);
+                createImage("Car.png", 15, 14, false,1, false);
+                createImage("Car.png", 15, 19, false,1, false);
+                createImage("Car.png", 14, 19, false,10, false);
                 break;
             }
         }
@@ -96,7 +95,8 @@ public class Level{
     }
 
     private void CreateBackground() {
-        backgroundImage = new ImageView(new Image("Files/Sprites/Frogger_background.jpg"));
+
+        backgroundImage = new ImageView(new Image("Files/Sprites/Frogger_background.png"));
         Main.window.getChildren().add(backgroundImage);
         backgroundImage.toBack();
         squareSize = backgroundImage.getBoundsInParent().getWidth() / 20; // background width is 900
@@ -105,15 +105,28 @@ public class Level{
         backgroundImage.relocate(getBackgroundImageStartingX(), getBackgroundImageStartingY());
         Main.frogger.relocate(positionOnColumn(10),
                 positionOnRow(19) - Main.frogger.getBoundsInParent().getHeight() / 2);
+
     }
 
     private void createWater() {
+
         ImageView water = new ImageView(new Image("Files/Sprites/Water.png"));
-        water.relocate(getBackgroundImage().getLayoutX(), getBackgroundImage().getLayoutY() + squareSize / 3);
+        water.relocate(getBackgroundImage().getLayoutX() ,getBackgroundImage().getLayoutY() + squareSize * 7 );
         images.add(new MyImage(water, false, 0, false));
         Main.window.getChildren().add(water);
+
         water.toBack();
+
         getBackgroundImage().toBack();
+    }
+    private void createRiverBank(){
+        ImageView riverBank = new ImageView((new Image("Files/Sprites/riverbank.png")));
+        riverBank.relocate(getBackgroundImage().getLayoutX() ,getBackgroundImage().getLayoutY() + squareSize * 7 - 20);
+        images.add(new MyImage(riverBank, false, 0, true));
+        Main.window.getChildren().add(riverBank);
+        riverBank.toBack();
+        getBackgroundImage().toBack();
+
     }
 
     private double differenceBetweenBackgroundAndWindow(){
