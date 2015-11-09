@@ -543,7 +543,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447113434147</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added new textures. Bug - cannot import non-functional decorative textures...">
+      <created>1447113536432</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1447113536432</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -609,7 +615,8 @@
     <MESSAGE value="Added load functionality." />
     <MESSAGE value="Load game fix" />
     <MESSAGE value="Added new textures. Bug - cannot import non-functional decorative textures." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new textures. Bug - cannot import non-functional decorative textures." />
+    <MESSAGE value="Added new textures. Bug - cannot import non-functional decorative textures..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new textures. Bug - cannot import non-functional decorative textures..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
