@@ -328,7 +328,7 @@ public class Main extends Application{
 
     // Handle user input.
     private void onKeyPress(String code) {
-        if(MoveObjectsManager.moving){
+        if(MoveObjectsManager.isMoving()){
             return;
         }
         if(isGameRunning){
@@ -399,7 +399,7 @@ public class Main extends Application{
         for (int i = 0; i < level.getVisitedRows().size() - 1; i++) {
             level.getVisitedRows().set(i, false);
         }
-        MoveObjectsManager.stopped = true; //if the death occurs while moving we have to prematurely stop frogger from moving
+        MoveObjectsManager.setStopped(true); //if the death occurs while moving we have to prematurely stop frogger from moving
         MoveObjectsManager.setCarrierItem(null); //if the player is being carried on something like a log we need to reset it to null
         if (Integer.parseInt(lives.getText()) >= 1 && !outOfTime){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
