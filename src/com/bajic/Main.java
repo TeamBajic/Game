@@ -147,7 +147,17 @@ public class Main extends Application{
         loadGameButton.setVisible(visible);
         quitGameButton.setVisible(visible);
     }
-
+    void pauseGame(){
+        if(isGameRunning){
+            animTimer.stop();
+            isGameRunning = false;
+            showPauseMenu();
+        }else{
+            hidePauseMenu();
+            isGameRunning = true;
+            animTimer.start();
+        }
+    }
     void showPauseMenu(){
 
         resumeGameButton.setLayoutX(215);
@@ -206,6 +216,7 @@ public class Main extends Application{
             // Set player starting position.
             initializeLevel(levelIndex);
             scene = new Scene(root);
+            scene.getStylesheets().add("com/bajic/styles.css");
             primaryStage.setScene(scene);
             primaryStage.setTitle("Frogger");
             primaryStage.show();
@@ -304,9 +315,7 @@ public class Main extends Application{
         }
         switch (code) {
             case "ESCAPE":
-                animTimer.stop();
-                isGameRunning = false;
-                showPauseMenu();
+                pauseGame();
                 break;
         }
     }
