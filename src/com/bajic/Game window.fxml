@@ -11,20 +11,20 @@
 <Pane id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bajic.Main">
    <children>
 
-      <Button fx:id="newGameButton" layoutX="215.0" layoutY="78.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="57.0" prefWidth="206.0" text="New game" textAlignment="CENTER" textFill="#25ae1b" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      <Button fx:id="newGameButton" layoutX="215.0" layoutY="78.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="57.0" prefWidth="206.0" text="New game" textAlignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
          <font>
             <Font size="27.0" />
          </font>
       </Button>
 
-      <Button fx:id="loadGameButton" layoutX="215.0" layoutY="147.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="57.0" prefWidth="206.0" text="Load game" textAlignment="CENTER" textFill="#25ae1b" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      <Button fx:id="loadGameButton" layoutX="215.0" layoutY="147.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="57.0" prefWidth="206.0" text="Load game" textAlignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
          <font>
             <Font size="27.0" />
          </font>
       </Button>
 
 
-      <Button fx:id="quitGameButton" layoutX="215.0" layoutY="218.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="57.0" prefWidth="206.0" text="Quit" textAlignment="CENTER" textFill="#25ae1b" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      <Button fx:id="quitGameButton" layoutX="215.0" layoutY="218.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="57.0" prefWidth="206.0" text="Quit" textAlignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
          <font>
             <Font size="27.0" />
          </font>

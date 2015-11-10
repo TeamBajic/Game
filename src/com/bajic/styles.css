@@ -1,5 +1,16 @@
 .button {
-    -fx-font: 16px "Serif";
+    -fx-font: 27px "Comic Sans MS";
+    -fx-text-fill: #384540;
     -fx-padding: 10;
     -fx-background-color: #CCFF99;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-effect: dropshadow( one-pass-box , gray , 3 , 0.0 , 2 , 2 );
+}
+.button:hover {
+    -fx-background-color: #D9CC73;
+
+}
+.button:pressed {
+    -fx-background-color: #996F5C;
 }
