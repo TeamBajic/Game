@@ -21,7 +21,7 @@ public class Level{
         CreateBackground();
         initializeLevel(levelIndex);
         createWater();
-        createRiverBank();
+       // createRiverBank();
     }
 
     public void initializeLevel(int level) {
