@@ -129,6 +129,11 @@ public class Main extends Application{
             PrintWriter writer = new PrintWriter(saveFile, "UTF-8");
             writer.print("" + levelIndex + "@" + time.getText() + "@" + score.getText() + "@" + level.getVisRowsCount() + "@" + lives.getText());
             writer.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Game successfully saved!");
+            alert.showAndWait();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error!");
