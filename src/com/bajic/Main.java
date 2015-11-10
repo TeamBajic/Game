@@ -87,7 +87,7 @@ public class Main extends Application{
     @FXML
     void loadGame(){
         String userHomeFolder = System.getProperty("user.home");
-        File loadFile = new File(userHomeFolder,"loadFile.txt");
+        File loadFile = new File(userHomeFolder,"frogger-saveFile.txt");
         ArrayList<String> loadSpecs = new ArrayList<>();
 
         try (Scanner sc = new Scanner(loadFile)) {
@@ -133,7 +133,7 @@ public class Main extends Application{
             }
         }
         String userHomeFolder = System.getProperty("user.home");
-        File saveFile = new File(userHomeFolder, "loadFile.txt");
+        File saveFile = new File(userHomeFolder, "frogger-saveFile.txt");
         try {
             saveFile.createNewFile();
             PrintWriter writer = new PrintWriter(saveFile, "UTF-8");
@@ -142,7 +142,7 @@ public class Main extends Application{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
             alert.setHeaderText(null);
-            alert.setContentText("Game successfully saved!");
+            alert.setContentText("Game successfully saved in " + userHomeFolder);
             alert.showAndWait();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
