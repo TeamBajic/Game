@@ -54,12 +54,15 @@ public class Main extends Application{
     public static boolean isSave = false;
     public static int loadVisRows = 0;
     public static int coinsTaken = 0;
+    public static boolean outOfTime = false;
+
     public AnimationTimer animTimer = new AnimationTimer() {
         public void handle(long currentNanoTime) {
             time.setText(Integer.toString(timeSeconds.getValue()));
             // Timer reaches 0 - lose life and restart.
             if(timeSeconds.getValue() == 0){
                 setTime();
+                outOfTime = true;
                 animTimer.stop();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Out of time!");
@@ -370,8 +373,19 @@ public class Main extends Application{
         lives.setText(Integer.toString(Integer.parseInt(lives.getText()) - 1));
         // No lives left.
         if(Integer.parseInt(lives.getText()) == 0){
-            Platform.exit();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over!");
+            alert.setHeaderText(null);
+            alert.setContentText("Game Over!");
+            alert.show();
+            try {
+                sleep(1500);
+            } catch (InterruptedException e) {
+                System.exit(0);
+            }
+            System.exit(0);
         }
+
         // Reset frog position to starting one.
         frogger.setLayoutX(level.getFroggerStartingPositionX());
         frogger.setLayoutY(level.getFroggerStartingPositionY());
@@ -380,6 +394,14 @@ public class Main extends Application{
         }
         Move.stopped = true;
         Move.setCarrierItem(null);
+        if (Integer.parseInt(lives.getText()) >= 1 && !outOfTime){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Got hit!");
+            alert.setHeaderText(null);
+            alert.setContentText("You got hit and lost a life!");
+            alert.show();
+        }
+        outOfTime = false;
     }
 
     public static void ResetEverything() {
