@@ -71,6 +71,7 @@ public class Main extends Application{
 
     Button resumeGameButton = new Button();
     Button saveGameButton = new Button();
+    Button quitButton = new Button();
 
     @FXML
     void startNewGame(){
@@ -186,6 +187,18 @@ public class Main extends Application{
            }
        });
         window.getChildren().add(saveGameButton);
+       quitButton.setLayoutX(215);
+       quitButton.setLayoutY(218);
+       quitButton.setText("Quit");
+       quitButton.setPrefHeight(57);
+       quitButton.setPrefWidth(206);
+       quitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                quitGame();
+            }
+        });
+        window.getChildren().add(quitButton);
     }
     void hidePauseMenu(){
         window.getChildren().remove(resumeGameButton);
