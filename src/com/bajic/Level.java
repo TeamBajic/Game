@@ -36,8 +36,41 @@ public class Level{
                     loadGameVisRows(Main.loadVisRows);
                 }
 
-                //row,column,right/left,speed,kill/no
+                createImage("Car.png", 18, 5, true,1, false);
+                createImage("Car.png", 18, 15, true,1, false);
+                createImage("Car.png", 18, 30, true,1, false);
+                createImage("Car.png", 16, 6, false,1, false);
+                createImage("Car.png", 16, 11, false,1, false);
+                createImage("Car.png", 16, 16, false,1, false);
+                createImage("Car.png", 16, 21, false,1, false);
+                createImage("Car.png", 13, 4, true,2, false);
+                createImage("Car.png", 13, 9, true,2, false);
+                createImage("Car.png", 13, 16, true,2, false);
+                createImage("Car.png", 10, 6, false,1, false);
+                createImage("Car.png", 10, 11, false,1, false);
+                createImage("Car.png", 10, 16, false,1, false);
+                createImage("Car.png", 9, 5, false,1, false);
+                createImage("Car.png", 9, 15, false,1, false);
+                createImage("Car.png", 6, 0, false,2, false);
+                createImage("Car.png", 6, 10, false,2, false);
+                createImage("Car.png", 6, 15, false,2, false);
+                createImage("Car.png", 5, 0, true,2, false);
+                createImage("Car.png", 5, 10, true,2, false);
+                createImage("Car.png", 5, 15, true,2, false);
 
+                Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
+                getBackgroundImage().toBack();
+                break;
+            }
+            case 2:{
+                CreateBackground();
+                setTimeForLevel(60);
+                initializeVisitedRows(20);
+                if (Main.isSave){
+                    loadGameVisRows(Main.loadVisRows);
+                }
+
+                //row,column,right/left,speed,harmless
                 createImage("Car.png", 18, 5, true,1, false);
                 createImage("Car.png", 18, 10, true,1, false);
                 createImage("Car.png", 18, 15, true,1, false);
@@ -50,23 +83,42 @@ public class Level{
                 createImage("Car.png", 15, 6, false,1, false);
                 createImage("Car.png", 15, 11, false,1, false);
                 createImage("Car.png", 15, 16, false,1, false);
+                createImage("Car.png", 14, 5, false,1, false);
+                createImage("Car.png", 14, 15, false,1, false);
+
+                createImage("Log.png", 11, 14, false,1, true);
                 createImage("Log.png", 11, 7, false,1, true);
                 createImage("Log.png", 11, 0, false,1, true);
+                createImage("Log.png", 10, 15, false,1, true);
+                createImage("Log.png", 10, 10, false,1, true);
                 createImage("Log.png", 10, 5, false,1, true);
                 createImage("Log.png", 10, 0, false,1, true);
-                createImage("Log.png", 9, 8, false,2, true);
-                createImage("Log.png", 9, 1, false,2, true);
+                createImage("Log.png", 9, 1, false,3, true);
+                createImage("Log.png", 9, 8, false,3, true);
+                createImage("Log.png", 9, 15, false,3, true);
                 createImage("Log.png", 8, 2, false,1, true);
-                createImage("Log.png", 8, 7, false,1, true);
+                createImage("Log.png", 8, 9, false,1, true);
+                createImage("Log.png", 8, 16, false,1, true);
+
+                createImage("Car.png", 6, 5, true,2, false);
+                createImage("Car.png", 6, 11, true,2, false);
+                createImage("Car.png", 6, 17, true,2, false);
+                createImage("Car.png", 4, 5, false,2, false);
+                createImage("Car.png", 4, 10, false,2, false);
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 getBackgroundImage().toBack();
                 createWater();
                 break;
             }
-            case 2:{
+            case 3:{
                 CreateBackground();
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
+                if (Main.isSave){
+                    loadGameVisRows(Main.loadVisRows);
+                }
+
+                //row,column,right/left,speed,harmless
                 createImage("Car.png", 18, 8, true,1, false);
                 createImage("Car.png", 18, 13, true,1, false);
                 createImage("Car.png", 18, 18, true,1, false);
@@ -80,11 +132,32 @@ public class Level{
                 createImage("Car.png", 15, 14, false,1, false);
                 createImage("Car.png", 15, 19, false,1, false);
                 createImage("Car.png", 14, 19, false,10, false);
+
+                createImage("Log.png", 11, 14, false,1, true);
+                createImage("Log.png", 11, 7, false,1, true);
+                createImage("Log.png", 11, 0, false,1, true);
+                createImage("Log.png", 10, 15, false,1, true);
+                createImage("Log.png", 10, 10, false,1, true);
+                createImage("Log.png", 10, 5, false,1, true);
+                createImage("Log.png", 10, 0, false,1, true);
+                createImage("Log.png", 9, 1, false,3, true);
+                createImage("Log.png", 9, 8, false,3, true);
+                createImage("Log.png", 9, 15, false,3, true);
+                createImage("Log.png", 8, 2, true,1, true);
+                createImage("Log.png", 8, 9, true,1, true);
+                createImage("Log.png", 8, 16, true,1, true);
+                createImage("Log.png", 8, 23, true,1, true);
+
+                createImage("Car.png", 6, 5, false,3, false);
+                createImage("Car.png", 6, 15, false,3, false);
+                createImage("Car.png", 4, 19, true,10, false);
+
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 getBackgroundImage().toBack();
+                createWater();
                 break;
             }
-            case 3:{
+            case 4:{
                 CreateBackground();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thank you!");
