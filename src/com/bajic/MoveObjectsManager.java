@@ -1,35 +1,50 @@
 package com.bajic;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
-public final class Move {
+public final class MoveObjectsManager {
 
-    public static boolean moving = false;
-    public static boolean stopped = false;
+    private static boolean moving = false;
+    private static boolean stopped = false;
     private static MyImage carrierItem = null;
+
+    public static boolean isMoving() {
+        return moving;
+    }
+
+    public static void setMoving(boolean moving) {
+        MoveObjectsManager.moving = moving;
+    }
+
+    public static boolean isStopped() {
+        return stopped;
+    }
+
+    public static void setStopped(boolean stopped) {
+        MoveObjectsManager.stopped = stopped;
+    }
 
     public static MyImage getCarrierItem() {
         return carrierItem;
     }
 
     public static void setCarrierItem(MyImage carrierItem) {
-        Move.carrierItem = carrierItem;
+        MoveObjectsManager.carrierItem = carrierItem;
     }
 
-    // Move frog.
+    // MoveObjectsManager frog.
     public static void moveFrogger(double x, double y) {
         //Check for an invalid move
         if (isInvalidAnimationMove(x, y)) {
             return;
         }
 
+        setMoving(true);
         //if the windows is between the background bounds we need to move everything except frogger to mimic the movement of camera
         if(isAbleToMoveEverything(x, y)){
-            moving = true;
             MoveEverything(x, y, true);
             return;
         }
@@ -47,7 +62,7 @@ public final class Move {
                 if(stopped){
                     currentFrames[0] = (int) (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND) + 1;
                     setCarrierItem(null);
-                    moving = false;
+                    setMoving(false);
                     stopped = false;
                     this.stop();
                 }
@@ -55,11 +70,10 @@ public final class Move {
                     Main.frogger.setLayoutX(Main.frogger.getLayoutX() + x / (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND));
                     Main.frogger.setLayoutY(Main.frogger.getLayoutY() + y / (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND));
                     currentFrames[0]++;
-                    moving = true;
                 }
                 else {
                     setCarrierItem(null);
-                    moving = false;
+                    setMoving(false);
                     this.stop();
                 }
             }
@@ -127,7 +141,7 @@ public final class Move {
             {
                 if(stopped){
                     currentFrames[0] = (int) (Main.ANIMATION_TIME * Main.FRAMES_PER_SECOND) + 1;
-                    moving = false;
+                    setMoving(false);
                     stopped = false;
                     if(froggerIsMoving){
                         setCarrierItem(null);
@@ -152,7 +166,7 @@ public final class Move {
                     if(froggerIsMoving){
                         setCarrierItem(null);
                     }
-                    moving = false;
+                    setMoving(false);
                     this.stop();
                 }
             }
@@ -185,7 +199,7 @@ public final class Move {
         return Main.level.getBackgroundImage().getLayoutY() <= -Main.level.getSquareSize();
     }
 
-    // Move enemies on the screen.
+    // MoveObjectsManager enemies on the screen.
     public static void moveImages(ArrayList<MyImage> images) {
         boolean willDie = false;
         for (int i = 0; i < images.size(); i++) {
@@ -203,7 +217,7 @@ public final class Move {
                     setCarrierItem(images.get(i));
                     continue;
                 }
-                else if (!moving){
+                else if (!isMoving()){
                     willDie = true;
                 }
             }
@@ -255,7 +269,7 @@ public final class Move {
         }
     }
 
-    // Collision check.
+    // Collision check for frogger.
     private static boolean imageOverlapsFrogger(ImageView imageView) {
         return Main.frogger.getBoundsInParent().intersects(imageView.getBoundsInParent());
     }

@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -56,23 +55,29 @@ public class Main extends Application{
     public static int coinsTaken = 0;
     public static boolean outOfTime = false;
 
+    //The animation timer that is called every frame
     public AnimationTimer animTimer = new AnimationTimer() {
         public void handle(long currentNanoTime) {
-            time.setText(Integer.toString(timeSeconds.getValue()));
+            time.setText(Integer.toString(timeSeconds.getValue())); //updates the timer
+
             // Timer reaches 0 - lose life and restart.
             if(timeSeconds.getValue() == 0){
-                setTime();
+                setTime(); //resets the time
                 outOfTime = true;
                 animTimer.stop();
+
+                //creates an alert for the player
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Out of time!");
                 alert.setHeaderText(null);
                 alert.setContentText("You ran out of time and lost a life!");
                 alert.show();
+
                 loseLife();
                 animTimer.start();
             }
-            Move.moveImages(level.getImages());
+
+            MoveObjectsManager.moveImages(level.getImages());
             // Handle user input.
             scene.setOnKeyPressed(
                     e -> {
@@ -261,7 +266,6 @@ public class Main extends Application{
             lives = (Text) root.lookup("#lives");
             score = (Text) root.lookup("#score");
             time = (Text) root.lookup("#time");
-            // Set player starting position.
             initializeLevel(levelIndex);
             scene = new Scene(root);
             scene.getStylesheets().add("com/bajic/styles.css");
@@ -275,6 +279,7 @@ public class Main extends Application{
 
     // Game time limit.
     public static void setTime() {
+        //sets the time according to the level's time
         if (timeline != null) {
             timeline.stop();
         }
@@ -287,6 +292,7 @@ public class Main extends Application{
     }
 
     public static void setTime(int loadTime) {
+        //sets the time according to the time it was stopped during the save
         if (timeline != null) {
             timeline.stop();
         }
@@ -298,8 +304,8 @@ public class Main extends Application{
         timeline.playFromStart();
     }
 
-    public static void initializeLevel(int levelIndex) {
-        if(level != null){
+    public static void initializeLevel(int levelIndex) { // initialize the level with the default time
+        if(level != null){ //if a level exists we need to set all the current images to invisible
             for (int i = 0; i < level.getImages().size(); i++) {
                 level.getImages().get(i).getImageView().setVisible(false);
             }
@@ -309,7 +315,7 @@ public class Main extends Application{
         setTime();
     }
 
-    public static void initializeLevel(int levelIndex, int LoadTime) {
+    public static void initializeLevel(int levelIndex, int LoadTime) {// initialize the level with the time from the save
         if(level != null){
             for (int i = 0; i < level.getImages().size(); i++) {
                 level.getImages().get(i).getImageView().setVisible(false);
@@ -322,7 +328,7 @@ public class Main extends Application{
 
     // Handle user input.
     private void onKeyPress(String code) {
-        if(Move.moving){
+        if(MoveObjectsManager.moving){
             return;
         }
         if(isGameRunning){
@@ -330,32 +336,32 @@ public class Main extends Application{
                 case "A":
                 case "LEFT": {
                     frogger.setRotate(-90);
-                    Move.moveFrogger(-level.getSquareSize(), 0);
+                    MoveObjectsManager.moveFrogger(-level.getSquareSize(), 0);
                     break;
                 }
                 case "D":
                 case "RIGHT":{
                     frogger.setRotate(90);
-                    Move.moveFrogger(level.getSquareSize(), 0);
+                    MoveObjectsManager.moveFrogger(level.getSquareSize(), 0);
                     break;
                 }
                 case "S":
                 case "DOWN":{
                     frogger.setRotate(-180);
-                    Move.moveFrogger(0, level.getSquareSize());
+                    MoveObjectsManager.moveFrogger(0, level.getSquareSize());
 
                     break;
                 }
                 case "W":
                 case "UP":{
-                    //score add
+                    //score add for going up a row
                     int row = (int) ((frogger.getLayoutY() - level.getBackgroundImage().getLayoutY()) / level.getSquareSize());
                     if(!level.getVisitedRows().get(row)){
                         level.getVisitedRows().set(row, true);
                         score.setText(Integer.toString(Integer.parseInt(score.getText()) + 10));
                     }
                     frogger.setRotate(0);
-                    Move.moveFrogger(0, -level.getSquareSize());
+                    MoveObjectsManager.moveFrogger(0, -level.getSquareSize());
 
                     break;
                 }
@@ -370,7 +376,8 @@ public class Main extends Application{
 
     // Lose a life.
     public static void loseLife() {
-        lives.setText(Integer.toString(Integer.parseInt(lives.getText()) - 1));
+        lives.setText(Integer.toString(Integer.parseInt(lives.getText()) - 1)); //reduce the lives by 1
+
         // No lives left.
         if(Integer.parseInt(lives.getText()) == 0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -392,8 +399,8 @@ public class Main extends Application{
         for (int i = 0; i < level.getVisitedRows().size() - 1; i++) {
             level.getVisitedRows().set(i, false);
         }
-        Move.stopped = true;
-        Move.setCarrierItem(null);
+        MoveObjectsManager.stopped = true; //if the death occurs while moving we have to prematurely stop frogger from moving
+        MoveObjectsManager.setCarrierItem(null); //if the player is being carried on something like a log we need to reset it to null
         if (Integer.parseInt(lives.getText()) >= 1 && !outOfTime){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Got hit!");

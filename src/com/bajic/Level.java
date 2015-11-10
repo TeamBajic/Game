@@ -10,6 +10,7 @@ import java.util.Random;
 import static java.lang.Thread.sleep;
 
 public class Level{
+    private int squaresLength = 20; //keep it as a non constant in case we want to make a level with more squares than 20/20
     private double squareSize;
     private double froggerStartingPositionX;
     private double froggerStartingPositionY;
@@ -35,13 +36,14 @@ public class Level{
             case 1:{
                 CreateBackground();
                 setTimeForLevel(60);
-                initializeVisitedRows(20);
-                initializeCoins(20 - Main.coinsTaken);
+                initializeVisitedRows(squaresLength);
+                initializeCoins(squaresLength - Main.coinsTaken);
                 Main.coinsTaken = 0;
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
 
+                //Create the movable objects for the level following: Name, row, column, is moving left, the object's speed, can carry frogger.
                 createImage("Car.png", 18, 5, true,1, false);
                 createImage("Car.png", 18, 15, true,1, false);
                 createImage("Car.png", 18, 30, true,1, false);
@@ -64,21 +66,22 @@ public class Level{
                 createImage("Car.png", 5, 10, true,2, false);
                 createImage("Car.png", 5, 15, true,2, false);
 
+                //set frogger's starting position to
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
-                getBackgroundImage().toBack();
+                getBackgroundImage().toBack(); // send the background image to the back so it doesn't hide anything
                 break;
             }
             case 2:{
                 CreateBackground();
                 setTimeForLevel(60);
-                initializeVisitedRows(20);
-                initializeCoins(20 - Main.coinsTaken);
+                initializeVisitedRows(squaresLength);
+                initializeCoins(squaresLength - Main.coinsTaken);
                 Main.coinsTaken = 0;
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
 
-                //row,column,right/left,speed,harmless
+                //Create the movable objects for the level following: Name, row, column, is moving left, the object's speed, can carry frogger.
                 createImage("Car.png", 18, 5, true,1, false);
                 createImage("Car.png", 18, 10, true,1, false);
                 createImage("Car.png", 18, 15, true,1, false);
@@ -113,6 +116,8 @@ public class Level{
                 createImage("Car.png", 6, 17, true,2, false);
                 createImage("Car.png", 4, 5, false,2, false);
                 createImage("Car.png", 4, 10, false,2, false);
+
+                //set frogger's starting position to
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 getBackgroundImage().toBack();
                 createWater();
@@ -121,15 +126,14 @@ public class Level{
             case 3:{
                 CreateBackground();
                 setTimeForLevel(60);
-                initializeVisitedRows(20);
-                initializeCoins(20 - Main.coinsTaken);
+                initializeVisitedRows(squaresLength);
+                initializeCoins(squaresLength - Main.coinsTaken);
                 Main.coinsTaken = 0;
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
 
-
-                //row,column,right/left,speed,harmless
+                //Create the movable objects for the level following: Name, row, column, is moving left, the object's speed, can carry frogger.
                 createImage("Car.png", 18, 8, true,1, false);
                 createImage("Car.png", 18, 13, true,1, false);
                 createImage("Car.png", 18, 18, true,1, false);
@@ -165,6 +169,7 @@ public class Level{
                 createImage("Car.png", 5, 15, true,4, false);
                 createImage("Car.png", 4, 19, true,10, false);
 
+                //set frogger's starting position to
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 getBackgroundImage().toBack();
                 createWater();
@@ -204,7 +209,8 @@ public class Level{
             image.toBack();
         }
     }
-
+    // since the rows and columns start from the edge of the background and not the form we need a formula to get the real
+    // row and column depending on the current position of the form
     private double positionOnColumn(int column){
         return -(backgroundImage.getBoundsInParent().getHeight() - Main.window.getPrefHeight()) / 2 + column * squareSize;
     }
@@ -227,11 +233,10 @@ public class Level{
     }
 
     private void CreateBackground() {
-
         backgroundImage = new ImageView(new Image("Files/Sprites/Frogger_background.png"));
         Main.window.getChildren().add(backgroundImage);
         backgroundImage.toBack();
-        squareSize = backgroundImage.getBoundsInParent().getWidth() / 20; // background width is 900
+        squareSize = backgroundImage.getBoundsInParent().getWidth() / squaresLength; // background width is 900
         this.setBackgroundImageStartingX(-(squareSize * 3));
         this.setBackgroundImageStartingY(-(differenceBetweenBackgroundAndWindow()));
         backgroundImage.relocate(getBackgroundImageStartingX(), getBackgroundImageStartingY());
@@ -252,7 +257,7 @@ public class Level{
     }
     private void createRiverBank(){
         ImageView riverBank = new ImageView((new Image("Files/Sprites/riverbank.png")));
-        riverBank.relocate(getBackgroundImage().getLayoutX() ,getBackgroundImage().getLayoutY() + squareSize * 7 - 20);
+        riverBank.relocate(getBackgroundImage().getLayoutX() ,getBackgroundImage().getLayoutY() + squareSize * 7 - squaresLength);
         images.add(new MyImage(riverBank, false, 0, true));
         Main.window.getChildren().add(riverBank);
         riverBank.toBack();
