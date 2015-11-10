@@ -10,6 +10,7 @@ public class MyImage {
     private boolean facingLeft;
     private double speed;
     private boolean carrier;
+    private boolean coin = false;
 
     public MyImage(ImageView image, boolean facingLeft, double speed, boolean carrier) {
         this.setImageView(image);
@@ -34,6 +35,10 @@ public class MyImage {
         this.carrier = carrier;
     }
 
+    public void setCoin(boolean coin) {
+        this.coin = coin;
+    }
+
     public ImageView getImageView() {
 
         return imageView;
@@ -52,4 +57,7 @@ public class MyImage {
         return carrier;
     }
 
+    public boolean isCoin() {
+        return coin;
+    }
 }

@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Level{
     private double squareSize;
@@ -17,6 +18,8 @@ public class Level{
     private ImageView backgroundImage;
     private double backgroundImageStartingX;
     private double backgroundImageStartingY;
+    private int coinsPicked = 0;
+    private int maxCoins;
 
     public Level(int levelIndex){
 
@@ -35,6 +38,7 @@ public class Level{
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
+                initializeCoins(20);
 
                 createImage("Car.png", 18, 5, true,1, false);
                 createImage("Car.png", 18, 15, true,1, false);
@@ -69,6 +73,7 @@ public class Level{
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
+                initializeCoins(20);
 
                 //row,column,right/left,speed,harmless
                 createImage("Car.png", 18, 5, true,1, false);
@@ -117,6 +122,7 @@ public class Level{
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
+                initializeCoins(20);
 
                 //row,column,right/left,speed,harmless
                 createImage("Car.png", 18, 8, true,1, false);
@@ -171,6 +177,21 @@ public class Level{
         Main.hud.toFront();
         this.setFroggerStartingPositionX(Main.frogger.getLayoutX());
         this.setFroggerStartingPositionY(Main.frogger.getLayoutY());
+    }
+
+    private void initializeCoins(int numberOfCoins) {
+        this.setMaxCoins(numberOfCoins);
+        Random rand = new Random();
+        for (int i = this.getCoinsPicked(); i < numberOfCoins; i++) {
+            ImageView image = new ImageView(new Image("Files/Sprites/coin-25x25.png"));
+            int row = rand.nextInt(this.getVisitedRows().size() - 1);
+            int column = rand.nextInt(this.getVisitedRows().size() - 1);
+            image.relocate(positionOnColumn(column), positionOnRow(row));
+            images.add(new MyImage(image, false, 0, false));
+            images.get(images.size() - 1).setCoin(true);
+            Main.window.getChildren().add(image);
+            image.toBack();
+        }
     }
 
     private double positionOnColumn(int column){
@@ -284,6 +305,14 @@ public class Level{
         this.backgroundImageStartingY = backgroundImageStartingY;
     }
 
+    public void setCoinsPicked(int coinsPicked) {
+        this.coinsPicked = coinsPicked;
+    }
+
+    public void setMaxCoins(int maxCoins) {
+        this.maxCoins = maxCoins;
+    }
+
     public double getSquareSize() {
         return squareSize;
     }
@@ -320,7 +349,15 @@ public class Level{
         return backgroundImageStartingX;
     }
 
+    public int getCoinsPicked() {
+        return coinsPicked;
+    }
+
     public double getBackgroundImageStartingY() {
         return backgroundImageStartingY;
+    }
+
+    public int getMaxCoins() {
+        return maxCoins;
     }
 }

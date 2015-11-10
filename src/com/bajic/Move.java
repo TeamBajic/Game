@@ -189,12 +189,20 @@ public final class Move {
         boolean willDie = false;
         for (int i = 0; i < images.size(); i++) {
             double distance = ((double) Main.FRAMES_PER_SECOND / (double) Main.SECOND_IN_MILLISECONDS) * images.get(i).getSpeed() * Main.SPEED_FACTOR;
-            if (imageOverlapsFrogger(images.get(i).getImageView()) && !moving){
+            if (imageOverlapsFrogger(images.get(i).getImageView())){
+                if(images.get(i).isCoin()){
+                    Main.level.setCoinsPicked(Main.level.getCoinsPicked() + 1);
+                    images.get(i).getImageView().setVisible(false);
+                    images.remove(i);
+                    i--;
+                    Main.score.setText(Integer.toString(Integer.parseInt(Main.score.getText()) + Main.POINTS_FROM_COIN));
+                    continue;
+                }
                 if(images.get(i).isCarrier()){
                     setCarrierItem(images.get(i));
                     continue;
                 }
-                else{
+                else if (!moving){
                     willDie = true;
                 }
             }
