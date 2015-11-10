@@ -48,6 +48,8 @@ public class Main extends Application{
     public static Text lives;
     public static Text score;
     public static Text time;
+    public static boolean isSave = false;
+    public static int loadVisRows = 0;
 
     public AnimationTimer animTimer = new AnimationTimer() {
         public void handle(long currentNanoTime) {
@@ -75,6 +77,7 @@ public class Main extends Application{
 
     @FXML
     void startNewGame(){
+        isSave = false;
         showMainMenu(false);
         animTimer.start();
         setTime();
@@ -94,7 +97,8 @@ public class Main extends Application{
             }
             sc.close();
             try {
-                level.setVisRowsCount(Integer.parseInt(loadSpecs.get(3)));
+                isSave = true;
+                loadVisRows = (Integer.parseInt(loadSpecs.get(3)));
                 score.setText(Integer.toString(Integer.parseInt(loadSpecs.get(2))));
                 levelIndex = Integer.parseInt(loadSpecs.get(0));
                 lives.setText(Integer.toString(Integer.parseInt(loadSpecs.get(4))));
@@ -122,12 +126,18 @@ public class Main extends Application{
     }
 
     void saveGame() {
+        int visRowsCount = 0;
+        for (int i = 0; i < 20 ; i++) {
+            if(level.getVisitedRows().get(i)){
+                visRowsCount++;
+            }
+        }
         String userHomeFolder = System.getProperty("user.home");
         File saveFile = new File(userHomeFolder, "loadFile.txt");
         try {
             saveFile.createNewFile();
             PrintWriter writer = new PrintWriter(saveFile, "UTF-8");
-            writer.print("" + levelIndex + "@" + time.getText() + "@" + score.getText() + "@" + level.getVisRowsCount() + "@" + lives.getText());
+            writer.print("" + levelIndex + "@" + time.getText() + "@" + score.getText() + "@" + visRowsCount + "@" + lives.getText());
             writer.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");

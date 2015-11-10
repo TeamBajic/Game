@@ -18,9 +18,9 @@ public class Level{
     private double backgroundImageStartingY;
 
     public Level(int levelIndex){
-        CreateBackground();
+
         initializeLevel(levelIndex);
-        createWater();
+
        // createRiverBank();
     }
 
@@ -28,8 +28,13 @@ public class Level{
 
         switch (level){
             case 1:{
+                CreateBackground();
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
+                if (Main.isSave){
+                    loadGameVisRows(Main.loadVisRows);
+                }
+
                 //row,column,right/left,speed,kill/no
 
                 createImage("Car.png", 18, 5, true,1, false);
@@ -53,9 +58,12 @@ public class Level{
                 createImage("Log.png", 8, 2, false,1, true);
                 createImage("Log.png", 8, 7, false,1, true);
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
+                getBackgroundImage().toBack();
+                createWater();
                 break;
             }
             case 2:{
+                CreateBackground();
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
                 createImage("Car.png", 18, 8, true,1, false);
@@ -71,6 +79,7 @@ public class Level{
                 createImage("Car.png", 15, 14, false,1, false);
                 createImage("Car.png", 15, 19, false,1, false);
                 createImage("Car.png", 14, 19, false,10, false);
+                getBackgroundImage().toBack();
                 break;
             }
         }
@@ -94,6 +103,12 @@ public class Level{
         }
     }
 
+    private void loadGameVisRows(int length) {
+        for (int i = 18; i > 18 - length; i--) {
+            this.getVisitedRows().set(i, true);
+        }
+    }
+
     private void CreateBackground() {
 
         backgroundImage = new ImageView(new Image("Files/Sprites/Frogger_background.png"));
@@ -105,7 +120,6 @@ public class Level{
         backgroundImage.relocate(getBackgroundImageStartingX(), getBackgroundImageStartingY());
         Main.frogger.relocate(positionOnColumn(10),
                 positionOnRow(19) - Main.frogger.getBoundsInParent().getHeight() / 2);
-
     }
 
     private void createWater() {
