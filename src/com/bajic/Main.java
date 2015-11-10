@@ -29,6 +29,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.Thread.sleep;
+
 public class Main extends Application{
 
     public static final int FRAMES_PER_SECOND = 60;
@@ -58,7 +60,14 @@ public class Main extends Application{
             // Timer reaches 0 - lose life and restart.
             if(timeSeconds.getValue() == 0){
                 setTime();
+                animTimer.stop();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Out of time!");
+                alert.setHeaderText(null);
+                alert.setContentText("You ran out of time and lost a life!");
+                alert.show();
                 loseLife();
+                animTimer.start();
             }
             Move.moveImages(level.getImages());
             // Handle user input.

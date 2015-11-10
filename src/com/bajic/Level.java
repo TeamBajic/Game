@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
+
 public class Level{
     private double squareSize;
     private double froggerStartingPositionX;
@@ -174,7 +176,13 @@ public class Level{
                 alert.setTitle("Thank you!");
                 alert.setHeaderText(null);
                 alert.setContentText("Thank you for playing our demo!");
-                alert.showAndWait();
+                alert.show();
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    System.exit(0);
+                }
+                System.exit(0);
             }
         }
         Main.hud.toFront();

@@ -1,6 +1,7 @@
 package com.bajic;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -250,6 +251,11 @@ public final class Move {
         }
         if(willDie){
             Main.loseLife();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("You lost a life!");
+            alert.setHeaderText(null);
+            alert.setContentText("You died and lost a life!");
+            alert.show();
             Main.ResetEverything();
         }
     }
