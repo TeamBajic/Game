@@ -133,7 +133,7 @@ public class Main extends Application{
             }
         }
         String userHomeFolder = System.getProperty("user.home");
-        File saveFile = new File(userHomeFolder, "loadFiwle.txt");
+        File saveFile = new File(userHomeFolder, "loadFile.txt");
         try {
             saveFile.createNewFile();
             PrintWriter writer = new PrintWriter(saveFile, "UTF-8");

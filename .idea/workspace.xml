@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/JavaFxApplication/com/bajic/Level.class" afterPath="$PROJECT_DIR$/out/production/JavaFxApplication/com/bajic/Level.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/bajic/Level.java" afterPath="$PROJECT_DIR$/src/com/bajic/Level.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/bajic/Main.java" afterPath="$PROJECT_DIR$/src/com/bajic/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -67,18 +66,18 @@
       <file leaf-file-name="Move.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/bajic/Move.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.566667">
-              <caret line="37" column="32" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="32" />
+            <state vertical-scroll-proportion="-5.3">
+              <caret line="85" column="14" selection-start-line="85" selection-start-column="14" selection-end-line="85" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/bajic/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-40.5">
-              <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="123" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.5411606">
+              <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Level.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Level.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/bajic/Level.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52496624">
-              <caret line="47" column="62" selection-start-line="47" selection-start-column="62" selection-end-line="47" selection-end-column="62" />
+            <state vertical-scroll-proportion="-8.233334">
+              <caret line="20" column="31" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setFroggerStartingPositionY#0;class#Level#0" expanded="false" />
@@ -269,9 +268,9 @@
         <option value="$PROJECT_DIR$/src/com/bajic/MyImage.java" />
         <option value="$PROJECT_DIR$/src/com/bajic/Game window.fxml" />
         <option value="$PROJECT_DIR$/src/com/bajic/styles.css" />
-        <option value="$PROJECT_DIR$/src/com/bajic/Main.java" />
         <option value="$PROJECT_DIR$/src/com/bajic/Move.java" />
         <option value="$PROJECT_DIR$/src/com/bajic/Level.java" />
+        <option value="$PROJECT_DIR$/src/com/bajic/Main.java" />
       </list>
     </option>
   </component>
@@ -744,7 +743,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447151420683</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Tweaked levels, added 1 more level.">
+      <created>1447152510028</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1447152510028</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -816,7 +821,8 @@
     <MESSAGE value="Added information pop up when saving the game." />
     <MESSAGE value="Cropped sprites with transparent background;&#10;Added visited rows tracking to save/load;" />
     <MESSAGE value="Added thank you message at end of game." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added thank you message at end of game." />
+    <MESSAGE value="Tweaked levels, added 1 more level." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tweaked levels, added 1 more level." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1294,33 +1300,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bajic/Level.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.233334">
+          <caret line="20" column="31" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setFroggerStartingPositionY#0;class#Level#0" expanded="false" />
+            <element signature="e#12462#12463#0" expanded="true" />
+            <element signature="e#12496#12497#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bajic/Move.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.566667">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="32" />
+        <state vertical-scroll-proportion="-5.3">
+          <caret line="85" column="14" selection-start-line="85" selection-start-column="14" selection-end-line="85" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bajic/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-40.5">
-          <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="123" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.5411606">
+          <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bajic/Level.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52496624">
-          <caret line="47" column="62" selection-start-line="47" selection-start-column="62" selection-end-line="47" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setFroggerStartingPositionY#0;class#Level#0" expanded="false" />
-            <element signature="e#12462#12463#0" expanded="true" />
-            <element signature="e#12496#12497#0" expanded="true" />
           </folding>
         </state>
       </provider>
