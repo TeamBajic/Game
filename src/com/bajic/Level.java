@@ -122,9 +122,9 @@ public class Level{
                 createImage("Car.png", 18, 8, true,1, false);
                 createImage("Car.png", 18, 13, true,1, false);
                 createImage("Car.png", 18, 18, true,1, false);
-                createImage("Car.png", 17, 9, false,1, false);
-                createImage("Car.png", 17, 14, false,1, false);
-                createImage("Car.png", 17, 19, false,1, false);
+                createImage("Car.png", 17, 9, false,4, false);
+                createImage("Car.png", 17, 14, false,4, false);
+                createImage("Car.png", 17, 19, false,4, false);
                 createImage("Car.png", 16, 7, true,2, false);
                 createImage("Car.png", 16, 12, true,2, false);
                 createImage("Car.png", 16, 19, true,2, false);
@@ -136,10 +136,10 @@ public class Level{
                 createImage("Log.png", 11, 14, false,1, true);
                 createImage("Log.png", 11, 7, false,1, true);
                 createImage("Log.png", 11, 0, false,1, true);
-                createImage("Log.png", 10, 15, false,1, true);
-                createImage("Log.png", 10, 10, false,1, true);
-                createImage("Log.png", 10, 5, false,1, true);
-                createImage("Log.png", 10, 0, false,1, true);
+                createImage("Log.png", 10, 15, false,2, true);
+                createImage("Log.png", 10, 10, false,2, true);
+                createImage("Log.png", 10, 5, false,2, true);
+                createImage("Log.png", 10, 0, false,2, true);
                 createImage("Log.png", 9, 1, false,3, true);
                 createImage("Log.png", 9, 8, false,3, true);
                 createImage("Log.png", 9, 15, false,3, true);
@@ -148,8 +148,10 @@ public class Level{
                 createImage("Log.png", 8, 16, true,1, true);
                 createImage("Log.png", 8, 23, true,1, true);
 
-                createImage("Car.png", 6, 5, false,3, false);
-                createImage("Car.png", 6, 15, false,3, false);
+                createImage("Car.png", 6, 5, false,4, false);
+                createImage("Car.png", 6, 15, false,4, false);
+                createImage("Car.png", 5, 5, true,4, false);
+                createImage("Car.png", 5, 15, true,4, false);
                 createImage("Car.png", 4, 19, true,10, false);
 
                 Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
