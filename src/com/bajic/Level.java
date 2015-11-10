@@ -1,5 +1,6 @@
 package com.bajic;
 
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -79,8 +80,17 @@ public class Level{
                 createImage("Car.png", 15, 14, false,1, false);
                 createImage("Car.png", 15, 19, false,1, false);
                 createImage("Car.png", 14, 19, false,10, false);
+                Main.frogger.relocate(positionOnColumn(9), positionOnRow(19));
                 getBackgroundImage().toBack();
                 break;
+            }
+            case 3:{
+                CreateBackground();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Thank you!");
+                alert.setHeaderText(null);
+                alert.setContentText("Thank you for playing our demo!");
+                alert.showAndWait();
             }
         }
         Main.hud.toFront();
