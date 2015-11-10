@@ -18,11 +18,10 @@ public class Level{
     private ImageView backgroundImage;
     private double backgroundImageStartingX;
     private double backgroundImageStartingY;
-    private int coinsPicked = 0;
+    private int coinsPicked;
     private int maxCoins;
 
     public Level(int levelIndex){
-
         initializeLevel(levelIndex);
 
        // createRiverBank();
@@ -35,10 +34,11 @@ public class Level{
                 CreateBackground();
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
+                initializeCoins(20 - Main.coinsTaken);
+                Main.coinsTaken = 0;
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
-                initializeCoins(20);
 
                 createImage("Car.png", 18, 5, true,1, false);
                 createImage("Car.png", 18, 15, true,1, false);
@@ -70,10 +70,11 @@ public class Level{
                 CreateBackground();
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
+                initializeCoins(20 - Main.coinsTaken);
+                Main.coinsTaken = 0;
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
-                initializeCoins(20);
 
                 //row,column,right/left,speed,harmless
                 createImage("Car.png", 18, 5, true,1, false);
@@ -119,10 +120,12 @@ public class Level{
                 CreateBackground();
                 setTimeForLevel(60);
                 initializeVisitedRows(20);
+                initializeCoins(20 - Main.coinsTaken);
+                Main.coinsTaken = 0;
                 if (Main.isSave){
                     loadGameVisRows(Main.loadVisRows);
                 }
-                initializeCoins(20);
+
 
                 //row,column,right/left,speed,harmless
                 createImage("Car.png", 18, 8, true,1, false);

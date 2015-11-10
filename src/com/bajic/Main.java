@@ -51,7 +51,7 @@ public class Main extends Application{
     public static Text time;
     public static boolean isSave = false;
     public static int loadVisRows = 0;
-
+    public static int coinsTaken = 0;
     public AnimationTimer animTimer = new AnimationTimer() {
         public void handle(long currentNanoTime) {
             time.setText(Integer.toString(timeSeconds.getValue()));
@@ -103,7 +103,7 @@ public class Main extends Application{
                 score.setText(Integer.toString(Integer.parseInt(loadSpecs.get(2))));
                 levelIndex = Integer.parseInt(loadSpecs.get(0));
                 lives.setText(Integer.toString(Integer.parseInt(loadSpecs.get(4))));
-
+                coinsTaken = Integer.parseInt(loadSpecs.get(5));
                 initializeLevel(levelIndex,Integer.parseInt(loadSpecs.get(1)));
                 showMainMenu(false);
                 animTimer.start();
@@ -138,7 +138,13 @@ public class Main extends Application{
         try {
             saveFile.createNewFile();
             PrintWriter writer = new PrintWriter(saveFile, "UTF-8");
-            writer.print("" + levelIndex + "@" + time.getText() + "@" + score.getText() + "@" + visRowsCount + "@" + lives.getText());
+            writer.print(
+                      levelIndex + "@" +
+                      time.getText() + "@" +
+                      score.getText() + "@" +
+                      visRowsCount + "@" +
+                      lives.getText() + "@" +
+                      level.getCoinsPicked());
             writer.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
