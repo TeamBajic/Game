@@ -203,6 +203,7 @@ public class Main extends Application{
     void hidePauseMenu(){
         window.getChildren().remove(resumeGameButton);
         window.getChildren().remove(saveGameButton);
+        window.getChildren().remove(quitButton);
     }
 
 
