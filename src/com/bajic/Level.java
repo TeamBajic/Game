@@ -32,7 +32,6 @@ public class Level{
 
     public void initializeLevel(int level) {
 
-
         switch (level){
             case 1:{
                 CreateBackground();
@@ -194,6 +193,7 @@ public class Level{
         Main.hud.toFront();
         this.setFroggerStartingPositionX(Main.frogger.getLayoutX());
         this.setFroggerStartingPositionY(Main.frogger.getLayoutY());
+        Main.loadHighscores(Main.Highscores);
     }
 
     private void initializeCoins(int numberOfCoins) {

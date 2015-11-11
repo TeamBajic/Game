@@ -414,7 +414,6 @@ public class Main extends Application{
             primaryStage.setScene(scene);
             primaryStage.setTitle("Frogger");
             primaryStage.show();
-            loadHighscores(Highscores);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
