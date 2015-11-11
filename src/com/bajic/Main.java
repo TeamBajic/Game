@@ -58,6 +58,7 @@ public class Main extends Application{
     public static boolean outOfTime = false;
     public static ArrayList<String> Highscores = new ArrayList<>();
     public static boolean gameStarted = false;
+    public static boolean hScoreShown = false;
 
     //The animation timer that is called every frame
     public AnimationTimer animTimer = new AnimationTimer() {
@@ -99,12 +100,11 @@ public class Main extends Application{
     Button highscoresButton = new Button();
     Button quitButton = new Button();
     ImageView highScoresBG = new ImageView();
+
     // Highscores.
     public static Text scoreText1 = new Text(230,130,"");
     public static Text scoreText2 = new Text(230,230,"");
     public static Text scoreText3 = new Text(230,330,"");
-   // final Text scoreText2 = new Text(215, 25, Highscores.get(0));
-    //final Text scoreText3 = new Text(215, 25, Highscores.get(0));
 
     @FXML
     void startNewGame(){
@@ -140,6 +140,7 @@ public class Main extends Application{
                 showMainMenu(false);
                 animTimer.start();
                 isGameRunning = true;
+                gameStarted = true;
             }
             catch(Exception e){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -332,12 +333,18 @@ public class Main extends Application{
     }
     @FXML
     void showHighscoresMenu(){
-        hidePauseMenu();
-        highScoresBG.setLayoutX(100);
+        if(!gameStarted){
+            showMainMenu(false);
+        }
+        else {
+            hidePauseMenu();
+        }
+        hScoreShown = true;
+        highScoresBG.setLayoutX(175);
         highScoresBG.setLayoutY(50);
-        highScoresBG.setImage(new Image("@../../Files/Sprites/HUD.jpg"));
-        highScoresBG.setFitHeight(400.0);
-        highScoresBG.setFitWidth(400.0);
+        highScoresBG.setImage(new Image("@../../Files/Sprites/Highscores.jpg"));
+        highScoresBG.setFitHeight(300.0);
+        highScoresBG.setFitWidth(250.0);
         window.getChildren().add(highScoresBG);
         hResumeGameButton.setLayoutX(200);
         hResumeGameButton.setLayoutY(370);
@@ -371,8 +378,13 @@ public class Main extends Application{
         window.getChildren().remove(scoreText2);
         window.getChildren().remove(scoreText3);
         window.getChildren().remove(highScoresBG);
-        if(gameStarted)showPauseMenu();
-
+        if(!gameStarted){
+            showMainMenu(true);
+        }
+        else {
+            showPauseMenu();
+        }
+        hScoreShown = false;
     }
 
     // when you reach the top of the screen you go to the next scene of the levelIndex
@@ -502,7 +514,12 @@ public class Main extends Application{
         }
         switch (code) {
             case "ESCAPE":
-                pauseGame();
+                    if(!hScoreShown){
+                        pauseGame();
+                    }
+                    else{
+                        hideHighscoresMenu();
+                    }
                 break;
         }
     }

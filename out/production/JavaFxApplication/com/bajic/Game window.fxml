@@ -21,7 +21,12 @@
       </Button>
 
 
-      <Button fx:id="quitGameButton" layoutX="215.0" layoutY="218.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="57.0" prefWidth="206.0" text="Quit" textAlignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      <Button fx:id="highScoresButtonM" layoutX="215.0" layoutY="218.0" mnemonicParsing="false" onAction="#showHighscoresMenu" prefHeight="57.0" prefWidth="206.0" text="Highscores" textAlignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Button>
+      <Button fx:id="quitGameButton" layoutX="215.0" layoutY="289.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="57.0" prefWidth="206.0" text="Quit" textAlignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
          <font>
             <Font size="27.0" />
          </font>
