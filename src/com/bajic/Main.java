@@ -99,12 +99,30 @@ public class Main extends Application{
     Button saveGameButton = new Button();
     Button highscoresButton = new Button();
     Button quitButton = new Button();
+    Button backButton = new Button();
     ImageView highScoresBG = new ImageView();
 
     // Highscores.
     public static Text scoreText1 = new Text(230,130,"");
     public static Text scoreText2 = new Text(230,230,"");
     public static Text scoreText3 = new Text(230,330,"");
+
+    @FXML
+    void backToMainMenu(){
+        hidePauseMenu();
+        restartGame();
+        showMainMenu(true);
+    }
+
+    @FXML
+        // Start fresh.
+    void restartGame(){
+        gameStarted = false;
+        score.setText("0");
+        lives.setText("3");
+        initializeLevel(1);
+    }
+
 
     @FXML
     void startNewGame(){
@@ -317,8 +335,15 @@ public class Main extends Application{
         highscoresButton.setPrefWidth(206);
         highscoresButton.setOnAction(e -> showHighscoresMenu());
         window.getChildren().add(highscoresButton);
+        backButton.setLayoutX(215);
+        backButton.setLayoutY(289);
+        backButton.setText("Main Menu");
+        backButton.setPrefHeight(57);
+        backButton.setPrefWidth(206);
+        backButton.setOnAction(e -> backToMainMenu());
+        window.getChildren().add(backButton);
         quitButton.setLayoutX(215);
-        quitButton.setLayoutY(289);
+        quitButton.setLayoutY(360);
         quitButton.setText("Quit");
         quitButton.setPrefHeight(57);
         quitButton.setPrefWidth(206);
@@ -329,6 +354,7 @@ public class Main extends Application{
         window.getChildren().remove(resumeGameButton);
         window.getChildren().remove(saveGameButton);
         window.getChildren().remove(highscoresButton);
+        window.getChildren().remove(backButton);
         window.getChildren().remove(quitButton);
     }
     @FXML
