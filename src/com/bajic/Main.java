@@ -342,7 +342,7 @@ public class Main extends Application{
         hScoreShown = true;
         highScoresBG.setLayoutX(175);
         highScoresBG.setLayoutY(50);
-        highScoresBG.setImage(new Image("@../../Files/Sprites/Highscores.jpg"));
+        highScoresBG.setImage(new Image("Files/Sprites/Highscores.jpg"));
         highScoresBG.setFitHeight(300.0);
         highScoresBG.setFitWidth(250.0);
         window.getChildren().add(highScoresBG);
