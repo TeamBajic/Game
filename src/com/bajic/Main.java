@@ -50,6 +50,7 @@ public class Main extends Application{
     public static Text lives;
     public static Text score;
     public static Text time;
+    public static Text currentLevel;
     public static boolean isSave = false;
     public static int loadVisRows = 0;
     public static int coinsTaken = 0;
@@ -205,13 +206,10 @@ public class Main extends Application{
         resumeGameButton.setText("Resume Game");
         resumeGameButton.setPrefHeight(57);
         resumeGameButton.setPrefWidth(206);
-        resumeGameButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                hidePauseMenu();
-                isGameRunning = true;
-                animTimer.start();
-            }
+        resumeGameButton.setOnAction(e -> {
+            hidePauseMenu();
+            isGameRunning = true;
+            animTimer.start();
         });
         window.getChildren().add(resumeGameButton);
        saveGameButton.setLayoutX(215);
@@ -219,24 +217,14 @@ public class Main extends Application{
        saveGameButton.setText("Save Game");
        saveGameButton.setPrefHeight(57);
        saveGameButton.setPrefWidth(206);
-       saveGameButton.setOnAction(new EventHandler<ActionEvent>() {
-           @Override
-           public void handle(ActionEvent e) {
-               saveGame();
-           }
-       });
+       saveGameButton.setOnAction(e -> saveGame());
         window.getChildren().add(saveGameButton);
        quitButton.setLayoutX(215);
        quitButton.setLayoutY(218);
        quitButton.setText("Quit");
        quitButton.setPrefHeight(57);
        quitButton.setPrefWidth(206);
-       quitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                quitGame();
-            }
-        });
+       quitButton.setOnAction(e -> quitGame());
         window.getChildren().add(quitButton);
     }
     void hidePauseMenu(){
@@ -266,6 +254,7 @@ public class Main extends Application{
             lives = (Text) root.lookup("#lives");
             score = (Text) root.lookup("#score");
             time = (Text) root.lookup("#time");
+            currentLevel = (Text)root.lookup("#level");
             initializeLevel(levelIndex);
             scene = new Scene(root);
             scene.getStylesheets().add("com/bajic/styles.css");
@@ -305,6 +294,7 @@ public class Main extends Application{
     }
 
     public static void initializeLevel(int levelIndex) { // initialize the level with the default time
+        currentLevel.setText(String.valueOf(levelIndex));
         if(level != null){ //if a level exists we need to set all the current images to invisible
             for (int i = 0; i < level.getImages().size(); i++) {
                 level.getImages().get(i).getImageView().setVisible(false);
