@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -55,6 +57,7 @@ public class Main extends Application{
     public static int coinsTaken = 0;
     public static boolean outOfTime = false;
     public static ArrayList<String> Highscores = new ArrayList<>();
+    public static boolean gameStarted = false;
 
     //The animation timer that is called every frame
     public AnimationTimer animTimer = new AnimationTimer() {
@@ -88,18 +91,18 @@ public class Main extends Application{
         }
     };
     @FXML
-    Button newGameButton,loadGameButton,quitGameButton;
+    Button newGameButton,loadGameButton,quitGameButton, highScoresButtonM;
 
     Button resumeGameButton = new Button();
     Button hResumeGameButton = new Button();
     Button saveGameButton = new Button();
     Button highscoresButton = new Button();
     Button quitButton = new Button();
-
+    ImageView highScoresBG = new ImageView();
     // Highscores.
-    public static Text scoreText1 = new Text(300,200,"");
-    public static Text scoreText2 = new Text(300,300,"");
-    public static Text scoreText3 = new Text(300,400,"");
+    public static Text scoreText1 = new Text(230,130,"");
+    public static Text scoreText2 = new Text(230,230,"");
+    public static Text scoreText3 = new Text(230,330,"");
    // final Text scoreText2 = new Text(215, 25, Highscores.get(0));
     //final Text scoreText3 = new Text(215, 25, Highscores.get(0));
 
@@ -108,6 +111,7 @@ public class Main extends Application{
         isSave = false;
         showMainMenu(false);
         animTimer.start();
+        gameStarted = true;
         setTime();
         isGameRunning = true;
     }
@@ -271,6 +275,7 @@ public class Main extends Application{
         newGameButton.setVisible(visible);
         loadGameButton.setVisible(visible);
         quitGameButton.setVisible(visible);
+        highScoresButtonM.setVisible(visible);
     }
     void pauseGame(){
         if(isGameRunning){
@@ -282,6 +287,7 @@ public class Main extends Application{
             isGameRunning = true;
             animTimer.start();
         }
+
     }
     void showPauseMenu(){
 
@@ -324,11 +330,17 @@ public class Main extends Application{
         window.getChildren().remove(highscoresButton);
         window.getChildren().remove(quitButton);
     }
-
+    @FXML
     void showHighscoresMenu(){
         hidePauseMenu();
-        hResumeGameButton.setLayoutX(215);
-        hResumeGameButton.setLayoutY(78);
+        highScoresBG.setLayoutX(100);
+        highScoresBG.setLayoutY(50);
+        highScoresBG.setImage(new Image("@../../Files/Sprites/HUD.jpg"));
+        highScoresBG.setFitHeight(400.0);
+        highScoresBG.setFitWidth(400.0);
+        window.getChildren().add(highScoresBG);
+        hResumeGameButton.setLayoutX(200);
+        hResumeGameButton.setLayoutY(370);
         hResumeGameButton.setText("Back");
         hResumeGameButton.setPrefHeight(57);
         hResumeGameButton.setPrefWidth(206);
@@ -336,13 +348,13 @@ public class Main extends Application{
         window.getChildren().add(hResumeGameButton);
         if (Highscores.size() > 0)
         {
-            scoreText1.setText(Highscores.get(0));
+            scoreText1.setText("1. "+Highscores.get(0));
         }
         if (Highscores.size() > 1){
-            scoreText2.setText(Highscores.get(1));
+            scoreText2.setText("2. "+Highscores.get(1));
         }
         if (Highscores.size() == 3){
-            scoreText3.setText(Highscores.get(2));
+            scoreText3.setText("3. "+Highscores.get(2));
         }
         scoreText1.setFont(Font.font ("Comic Sans MS", 40));
         window.getChildren().add(scoreText1);
@@ -358,7 +370,9 @@ public class Main extends Application{
         window.getChildren().remove(scoreText1);
         window.getChildren().remove(scoreText2);
         window.getChildren().remove(scoreText3);
-        showPauseMenu();
+        window.getChildren().remove(highScoresBG);
+        if(gameStarted)showPauseMenu();
+
     }
 
     // when you reach the top of the screen you go to the next scene of the levelIndex
