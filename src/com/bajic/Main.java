@@ -7,8 +7,6 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -55,6 +54,7 @@ public class Main extends Application{
     public static int loadVisRows = 0;
     public static int coinsTaken = 0;
     public static boolean outOfTime = false;
+    public static ArrayList<String> Highscores = new ArrayList<>();
 
     //The animation timer that is called every frame
     public AnimationTimer animTimer = new AnimationTimer() {
@@ -91,8 +91,17 @@ public class Main extends Application{
     Button newGameButton,loadGameButton,quitGameButton;
 
     Button resumeGameButton = new Button();
+    Button hResumeGameButton = new Button();
     Button saveGameButton = new Button();
+    Button highscoresButton = new Button();
     Button quitButton = new Button();
+
+    // Highscores.
+    public static Text scoreText1 = new Text(300,200,"");
+    public static Text scoreText2 = new Text(300,300,"");
+    public static Text scoreText3 = new Text(300,400,"");
+   // final Text scoreText2 = new Text(215, 25, Highscores.get(0));
+    //final Text scoreText3 = new Text(215, 25, Highscores.get(0));
 
     @FXML
     void startNewGame(){
@@ -104,6 +113,7 @@ public class Main extends Application{
     }
 
     @FXML
+    // Load game from a file.
     void loadGame(){
         String userHomeFolder = System.getProperty("user.home");
         File loadFile = new File(userHomeFolder,"frogger-saveFile.txt");
@@ -144,6 +154,7 @@ public class Main extends Application{
         }
     }
 
+    // Save game to a file.
     void saveGame() {
         int visRowsCount = 0;
         for (int i = 0; i < 20 ; i++) {
@@ -178,8 +189,81 @@ public class Main extends Application{
         }
     }
 
+    // Calculate if current score is big enough to be in the highscores.
+        static void calcHighscores(ArrayList<String> newHighScore){
+            // Add new score to highscores.
+            newHighScore.add(score.getText());
+            int lastElemPos = newHighScore.size() - 1;
+            // Sort highscores descending.
+            for (int i = 0; i <= lastElemPos; i++) {
+                if (Integer.parseInt(newHighScore.get(lastElemPos)) >
+                        Integer.parseInt(newHighScore.get(i))) {
+                    Collections.swap(newHighScore, i, lastElemPos);
+                }
+            }
+            // If there are more than 3 entries, remove last one (4th one).
+            if(lastElemPos > 2){
+                newHighScore.remove(lastElemPos);
+            }
+            saveHighscores(newHighScore);
+    }
+
+    // Load highscores from a file into the program.
+    static void loadHighscores(ArrayList<String> newHighScore){
+        String userHomeFolder = System.getProperty("user.home");
+        File highscoresFile = new File(userHomeFolder,"frogger-highscores.txt");
+        try (Scanner sc = new Scanner(highscoresFile)) {
+            while( sc.hasNext() ) {
+                newHighScore.add(sc.next());
+            }
+            sc.close();
+        }catch (IOException e) {
+            try {
+                highscoresFile.createNewFile();
+            } catch (IOException e1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error!");
+                alert.setHeaderText(null);
+                alert.setContentText("Could not create a highscores file!");
+                alert.showAndWait();
+            }
+        }catch(Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setHeaderText(null);
+            alert.setContentText("Highscores file is unreadable!");
+            alert.showAndWait();
+        }
+    }
+
+    // Save current highscores to a file.
+    static void saveHighscores(ArrayList<String> newHighScore){
+        String userHomeFolder = System.getProperty("user.home");
+        File highscoresFile = new File(userHomeFolder, "frogger-highscores.txt");
+        try {
+            highscoresFile.createNewFile();
+            PrintWriter writer = new PrintWriter(highscoresFile, "UTF-8");
+            for(int i = 0; i < newHighScore.size(); i++){
+                writer.println(newHighScore.get(i));
+            }
+            writer.close();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error!");
+            alert.setHeaderText(null);
+            alert.setContentText("Could not write highscores to a file!");
+            alert.showAndWait();
+        }
+    }
+
+    static void exitGame(){
+        calcHighscores(Highscores);
+        System.exit(0);
+    }
+
     @FXML
     void quitGame(){
+        calcHighscores(Highscores);
         System.exit(0);
     }
 
@@ -212,27 +296,70 @@ public class Main extends Application{
             animTimer.start();
         });
         window.getChildren().add(resumeGameButton);
-       saveGameButton.setLayoutX(215);
-       saveGameButton.setLayoutY(147);
-       saveGameButton.setText("Save Game");
-       saveGameButton.setPrefHeight(57);
-       saveGameButton.setPrefWidth(206);
-       saveGameButton.setOnAction(e -> saveGame());
+        saveGameButton.setLayoutX(215);
+        saveGameButton.setLayoutY(147);
+        saveGameButton.setText("Save Game");
+        saveGameButton.setPrefHeight(57);
+        saveGameButton.setPrefWidth(206);
+        saveGameButton.setOnAction(e -> saveGame());
         window.getChildren().add(saveGameButton);
-       quitButton.setLayoutX(215);
-       quitButton.setLayoutY(218);
-       quitButton.setText("Quit");
-       quitButton.setPrefHeight(57);
-       quitButton.setPrefWidth(206);
-       quitButton.setOnAction(e -> quitGame());
+        highscoresButton.setLayoutX(215);
+        highscoresButton.setLayoutY(218);
+        highscoresButton.setText("Highscores");
+        highscoresButton.setPrefHeight(57);
+        highscoresButton.setPrefWidth(206);
+        highscoresButton.setOnAction(e -> showHighscoresMenu());
+        window.getChildren().add(highscoresButton);
+        quitButton.setLayoutX(215);
+        quitButton.setLayoutY(289);
+        quitButton.setText("Quit");
+        quitButton.setPrefHeight(57);
+        quitButton.setPrefWidth(206);
+        quitButton.setOnAction(e -> quitGame());
         window.getChildren().add(quitButton);
     }
     void hidePauseMenu(){
         window.getChildren().remove(resumeGameButton);
         window.getChildren().remove(saveGameButton);
+        window.getChildren().remove(highscoresButton);
         window.getChildren().remove(quitButton);
     }
 
+    void showHighscoresMenu(){
+        hidePauseMenu();
+        hResumeGameButton.setLayoutX(215);
+        hResumeGameButton.setLayoutY(78);
+        hResumeGameButton.setText("Back");
+        hResumeGameButton.setPrefHeight(57);
+        hResumeGameButton.setPrefWidth(206);
+        hResumeGameButton.setOnAction(e -> hideHighscoresMenu());
+        window.getChildren().add(hResumeGameButton);
+        if (Highscores.size() > 0)
+        {
+            scoreText1.setText(Highscores.get(0));
+        }
+        if (Highscores.size() > 1){
+            scoreText2.setText(Highscores.get(1));
+        }
+        if (Highscores.size() == 3){
+            scoreText3.setText(Highscores.get(2));
+        }
+        scoreText1.setFont(Font.font ("Comic Sans MS", 40));
+        window.getChildren().add(scoreText1);
+        scoreText2.setFont(Font.font ("Comic Sans MS", 40));
+        window.getChildren().add(scoreText2);
+        scoreText3.setFont(Font.font ("Comic Sans MS", 40));
+        window.getChildren().add(scoreText3);
+
+    }
+
+    void hideHighscoresMenu(){
+        window.getChildren().remove(hResumeGameButton);
+        window.getChildren().remove(scoreText1);
+        window.getChildren().remove(scoreText2);
+        window.getChildren().remove(scoreText3);
+        showPauseMenu();
+    }
 
     // when you reach the top of the screen you go to the next scene of the levelIndex
     // and also if you go to the bottom you go back to the previous one.
@@ -254,13 +381,14 @@ public class Main extends Application{
             lives = (Text) root.lookup("#lives");
             score = (Text) root.lookup("#score");
             time = (Text) root.lookup("#time");
-            currentLevel = (Text)root.lookup("#level");
+            currentLevel = (Text) root.lookup("#level");
             initializeLevel(levelIndex);
             scene = new Scene(root);
             scene.getStylesheets().add("com/bajic/styles.css");
             primaryStage.setScene(scene);
             primaryStage.setTitle("Frogger");
             primaryStage.show();
+            loadHighscores(Highscores);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -379,9 +507,9 @@ public class Main extends Application{
             try {
                 sleep(1500);
             } catch (InterruptedException e) {
-                System.exit(0);
+                exitGame();
             }
-            System.exit(0);
+            exitGame();
         }
 
         // Reset frog position to starting one.

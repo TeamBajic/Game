@@ -3,9 +3,6 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <Pane id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bajic.Main">
@@ -41,12 +38,14 @@
                   <Image url="@../../Files/Sprites/HUD.jpg" />
                </image>
             </ImageView>
-            <Text id="score" layoutX="130.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-            <Text layoutX="93.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
-            <Text id="lives" layoutX="51.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-            <Text layoutX="496.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
-            <Text id="time" layoutX="535.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60" />
-            <Text layoutX="18.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives" />
+            <Text id="score" fill="#158c0f" layoutX="142.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text id="score-text" layoutX="93.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" />
+            <Text id="lives" fill="#158c0f" layoutX="62.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+            <Text id="time-text" layoutX="496.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" />
+            <Text id="time" fill="#158c0f" layoutX="537.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60" />
+            <Text id="lives-text" layoutX="18.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives:" />
+            <Text id="level-text" layoutX="268.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level: " wrappingWidth="46.56689453125" />
+            <Text id="level" fill="#158c0f" layoutX="315.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="46.56689453125" />
          </children>
       </Pane>
 

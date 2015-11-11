@@ -32,6 +32,7 @@ public class Level{
 
     public void initializeLevel(int level) {
 
+
         switch (level){
             case 1:{
                 CreateBackground();
@@ -185,9 +186,9 @@ public class Level{
                 try {
                     sleep(1000);
                 } catch (InterruptedException e) {
-                    System.exit(0);
+                    Main.exitGame();
                 }
-                System.exit(0);
+                Main.exitGame();
             }
         }
         Main.hud.toFront();
