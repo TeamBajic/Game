@@ -584,6 +584,7 @@ public class Main extends Application{
             alert.show();
         }
         outOfTime = false;
+        Main.ResetEverything();
     }
 
     public static void ResetEverything() {

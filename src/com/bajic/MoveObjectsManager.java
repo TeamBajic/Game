@@ -265,7 +265,6 @@ public final class MoveObjectsManager {
         }
         if(willDie){
             Main.loseLife();
-            Main.ResetEverything();
         }
     }
 
